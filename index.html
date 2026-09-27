@@ -7,7 +7,7 @@
   <meta name="description" content="Agência Zion, em Timóteo, MG. Sites que vendem, gestão de Instagram e tráfego, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;700;800&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     /* =========================================================
        TEXTOS: troque direto no HTML lá embaixo, seção por seção.
@@ -15,9 +15,9 @@
        ========================================================= */
     :root {
       --fundo: #050505; --texto: #f4f4f4; --cinza: #a3a3a3; --cinza-2: #6a6a6a;
-      --linha: rgba(255,255,255,.09); --vidro: rgba(255,255,255,.04); --vidro-borda: rgba(255,255,255,.1);
+      --linha: rgba(255,255,255,.1); --vidro: rgba(9,9,9,.86); --vidro-borda: rgba(255,255,255,.14);
       --prata-1: #ffffff; --prata-2: #cfcfcf; --prata-3: #7c7c7c; --zap: #22c55e;
-      --display: "Syne", "Manrope", sans-serif; --corpo: "Manrope", system-ui, sans-serif;
+      --display: "Manrope", system-ui, sans-serif; --corpo: "Manrope", system-ui, sans-serif;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
@@ -25,14 +25,23 @@
     a { color: inherit; }
     .miolo { max-width: 1160px; margin: 0 auto; padding: 0 28px; }
 
-    /* fundo vivo: malha de pontos ondulando, desenhada no canvas (script no fim) */
-    #ondas { position: fixed; inset: 0; z-index: -2; width: 100vw; height: 100vh; display: block; background: var(--fundo); }
-    .veu { position: fixed; inset: 0; z-index: -1; pointer-events: none; background: radial-gradient(90% 60% at 50% 0%, rgba(5,5,5,0) 0%, rgba(5,5,5,.25) 60%, rgba(5,5,5,.7) 100%); }
+    /* fundo vivo: a imagem de manchas de luz (img/zion-fundo.png) derivando devagar, mais duas manchas que passeiam e um brilho que segue o mouse */
+    .fundo { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--fundo); }
+    .fundo .img { position: absolute; inset: -12%; background: url("img/zion-fundo.png") center / cover no-repeat; opacity: .9; animation: deriva 28s ease-in-out infinite alternate; will-change: transform; }
+    .fundo .m { position: absolute; border-radius: 50%; filter: blur(60px); mix-blend-mode: screen; will-change: transform; }
+    .fundo .m1 { width: 60vmax; height: 60vmax; left: -10vmax; top: -20vmax; background: radial-gradient(circle, rgba(200,200,200,.55), rgba(120,120,120,.15) 45%, transparent 70%); animation: m1 24s ease-in-out infinite alternate; }
+    .fundo .m2 { width: 50vmax; height: 50vmax; right: -15vmax; bottom: -15vmax; background: radial-gradient(circle, rgba(230,230,230,.5), rgba(120,120,120,.12) 45%, transparent 70%); animation: m2 31s ease-in-out infinite alternate; }
+    .fundo .toque { position: absolute; left: 0; top: 0; width: 46vmax; height: 46vmax; margin: -23vmax 0 0 -23vmax; border-radius: 50%; background: radial-gradient(circle, rgba(255,255,255,.28), rgba(200,200,200,.08) 40%, transparent 65%); filter: blur(40px); mix-blend-mode: screen; opacity: 0; transition: opacity .6s; will-change: transform; }
+    .fundo::after { content: ""; position: absolute; inset: 0; background: rgba(5,5,5,.22); }
+    @keyframes deriva { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(3%, -4%) scale(1.12); } }
+    @keyframes m1 { 0% { transform: translate(0, 0); } 100% { transform: translate(30vw, 35vh); } }
+    @keyframes m2 { 0% { transform: translate(0, 0); } 100% { transform: translate(-35vw, -30vh); } }
+    @media (prefers-reduced-motion: reduce) { .fundo .img, .fundo .m { animation: none; } }
 
     .metal { background: linear-gradient(180deg, var(--prata-1) 0%, var(--prata-2) 40%, var(--prata-3) 52%, var(--prata-2) 64%, var(--prata-1) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
     .rotulo { display: inline-flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; letter-spacing: .26em; color: var(--cinza); text-transform: uppercase; margin-bottom: 18px; }
     .rotulo::before { content: ""; width: 22px; height: 1px; background: linear-gradient(90deg, #fff, transparent); }
-    h1, h2, h3 { font-family: var(--display); letter-spacing: -.02em; line-height: 1.02; }
+    h1, h2, h3 { font-family: var(--display); letter-spacing: -.03em; line-height: 1.05; text-shadow: 0 2px 24px rgba(0,0,0,.7); }
     h2 { font-size: clamp(32px, 4.4vw, 54px); font-weight: 800; }
     h2 em { font-style: normal; color: var(--cinza-2); font-weight: 500; }
     .cabeca { display: grid; grid-template-columns: 1.2fr 1fr; gap: 30px; align-items: end; margin-bottom: 48px; }
@@ -40,7 +49,7 @@
     section { padding: 104px 0; position: relative; }
 
     /* cabeçalho */
-    .topo { position: sticky; top: 0; z-index: 20; background: rgba(5,5,5,.5); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--linha); }
+    .topo { position: sticky; top: 0; z-index: 20; background: rgba(5,5,5,.82); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); border-bottom: 1px solid var(--linha); }
     .topo .miolo { display: flex; justify-content: space-between; align-items: center; height: 72px; transition: height .35s cubic-bezier(.22,1,.36,1); }
     body.rolou .topo .miolo { height: 58px; }
     .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
@@ -65,16 +74,17 @@
     .btn.fantasma:hover { border-color: #fff; }
 
     /* abertura */
-    .hero { position: relative; padding: 96px 0 72px; min-height: calc(100vh - 72px); display: grid; align-items: center; }
-    .hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(55% 70% at 28% 45%, rgba(5,5,5,.72), rgba(5,5,5,0) 100%); pointer-events: none; }
+    .hero { position: relative; padding: 56px 28px 64px; display: grid; align-items: center; }
+    .hero .painel { width: 100%; max-width: 1160px; margin: 0 auto; padding: 72px 56px 56px; border-radius: 30px; background: rgba(6,6,6,.84); border: 1px solid var(--vidro-borda); box-shadow: 0 40px 100px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.1); }
+    .hero .painel .miolo { padding: 0; }
     .hero .miolo { display: grid; grid-template-columns: 1.35fr .9fr; gap: 56px; align-items: end; }
-    .hero h1 { font-size: clamp(44px, 6.4vw, 86px); font-weight: 800; letter-spacing: -.035em; line-height: .94; }
+    .hero h1 { font-size: clamp(42px, 6vw, 80px); font-weight: 800; letter-spacing: -.04em; line-height: 1; }
     .hero h1 .l { display: block; overflow: hidden; padding-bottom: .04em; }
     .hero h1 .l > span { display: block; transform: translateY(110%); transition: transform 1.1s cubic-bezier(.22,1,.36,1); }
     body.pronto .hero h1 .l:nth-child(1) > span { transform: none; transition-delay: .1s; }
     body.pronto .hero h1 .l:nth-child(2) > span { transform: none; transition-delay: .22s; }
     body.pronto .hero h1 .l:nth-child(3) > span { transform: none; transition-delay: .34s; }
-    .hero h1 .brilho { background: linear-gradient(180deg, #fff 0%, #d9d9d9 38%, #707070 50%, #d9d9d9 62%, #fff 100%); background-size: 100% 240%; -webkit-background-clip: text; background-clip: text; color: transparent; animation: faixa 7s ease-in-out infinite alternate; }
+    .hero h1 .brilho { color: #bdbdbd; }
     @keyframes faixa { from { background-position: 0 0%; } to { background-position: 0 100%; } }
     .hero .apoio { display: grid; gap: 22px; }
     .hero .apoio > * { opacity: 0; transform: translateY(16px); transition: opacity .9s cubic-bezier(.22,1,.36,1), transform .9s cubic-bezier(.22,1,.36,1); }
@@ -85,7 +95,7 @@
     .botoes { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
     .hero .rotulo { opacity: 0; transition: opacity .8s .3s; } body.pronto .hero .rotulo { opacity: 1; }
     /* números da abertura */
-    .numeros { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 72px; border-top: 1px solid var(--linha); opacity: 0; transition: opacity 1s .9s; }
+    .numeros { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 56px; border-top: 1px solid var(--linha); opacity: 0; transition: opacity 1s .9s; }
     body.pronto .numeros { opacity: 1; }
     .numeros div { padding: 26px 0 0; border-right: 1px solid var(--linha); padding-right: 24px; margin-right: 24px; }
     .numeros div:last-child { border: 0; margin: 0; padding-right: 0; }
@@ -93,7 +103,7 @@
     .numeros small { display: block; font-size: 13px; color: var(--cinza); margin-top: 8px; }
 
     /* faixa rolante */
-    .faixa { border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); background: rgba(5,5,5,.5); backdrop-filter: blur(6px); overflow: hidden; padding: 18px 0; }
+    .faixa { border-top: 1px solid var(--linha); border-bottom: 1px solid var(--linha); background: rgba(5,5,5,.85); overflow: hidden; padding: 18px 0; }
     .faixa .trilho { display: flex; width: max-content; gap: 0; animation: rolar 32s linear infinite; }
     .faixa span { font-family: var(--display); font-weight: 700; font-size: 13px; letter-spacing: .3em; text-transform: uppercase; color: var(--cinza); padding: 0 34px; white-space: nowrap; position: relative; }
     .faixa span::after { content: ""; position: absolute; right: -3px; top: 50%; width: 5px; height: 5px; border-radius: 50%; background: #fff; transform: translateY(-50%); opacity: .6; }
@@ -111,7 +121,7 @@
     .cartao h3 { font-size: 26px; font-weight: 800; margin-bottom: 12px; }
     .cartao p { color: var(--cinza); font-size: 15px; max-width: 46ch; }
     .cartao ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0 26px; }
-    .cartao li { font-size: 12.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--vidro-borda); background: rgba(255,255,255,.03); color: var(--cinza); }
+    .cartao li { font-size: 12.5px; font-weight: 600; padding: 7px 12px; border-radius: 999px; border: 1px solid var(--vidro-borda); background: rgba(255,255,255,.06); color: var(--cinza); }
     .cartao a { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; text-decoration: none; }
     .cartao a::after { content: "→"; transition: transform .3s; }
     .cartao a:hover::after { transform: translateX(4px); }
@@ -140,7 +150,7 @@
     /* pacotes */
     .pacotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; align-items: stretch; }
     .pacote { position: relative; padding: 34px 30px 30px; border-radius: 26px; border: 1px solid var(--vidro-borda); background: var(--vidro); display: flex; flex-direction: column; }
-    .pacote.destaque { background: linear-gradient(180deg, rgba(255,255,255,.09), rgba(255,255,255,.03)); border-color: rgba(255,255,255,.28); box-shadow: 0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25); }
+    .pacote.destaque { background: linear-gradient(180deg, rgba(28,28,28,.95), rgba(12,12,12,.95)); border-color: rgba(255,255,255,.28); box-shadow: 0 30px 80px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.25); }
     .pacote .selo { position: absolute; top: -12px; left: 30px; padding: 6px 12px; font-size: 10.5px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; border-radius: 999px; background: linear-gradient(180deg, #fff, #b5b5b5); color: #050505; }
     .pacote small { font-size: 11.5px; letter-spacing: .22em; text-transform: uppercase; color: var(--cinza-2); font-weight: 700; }
     .pacote h3 { font-size: 28px; font-weight: 800; margin: 8px 0 6px; }
@@ -179,13 +189,13 @@
     .canais { display: grid; gap: 12px; }
     .canal { display: flex; align-items: center; gap: 16px; padding: 20px 22px; border-radius: 20px; border: 1px solid var(--vidro-borda); background: var(--vidro); text-decoration: none; transition: border-color .2s, transform .3s; }
     a.canal:hover { border-color: rgba(255,255,255,.3); transform: translateX(4px); }
-    .canal .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.06); border: 1px solid var(--vidro-borda); flex: none; }
+    .canal .ic { width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; background: rgba(255,255,255,.08); border: 1px solid var(--vidro-borda); flex: none; }
     .canal .ic svg { width: 20px; height: 20px; }
     .canal b { display: block; font-size: 15px; font-weight: 700; }
     .canal span { font-size: 13px; color: var(--cinza); }
     .canal.zap .ic { background: rgba(34,197,94,.14); border-color: rgba(34,197,94,.3); color: #4ade80; }
 
-    footer { border-top: 1px solid var(--linha); padding: 44px 0 28px; font-size: 13.5px; color: var(--cinza); background: rgba(5,5,5,.6); }
+    footer { border-top: 1px solid var(--linha); padding: 44px 0 28px; font-size: 13.5px; color: var(--cinza); background: rgba(5,5,5,.9); }
     footer .colunas { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 30px; margin-bottom: 34px; }
     footer p { margin-top: 12px; max-width: 34ch; }
     footer h4 { font-family: var(--display); color: var(--texto); font-size: 13px; letter-spacing: .2em; text-transform: uppercase; margin-bottom: 14px; }
@@ -242,7 +252,8 @@
       .cartoes, .passos, .pacotes, .trabalhos { grid-template-columns: 1fr 1fr; }
       .trabalho.grande { grid-column: span 2; }
       .hero .miolo, .cabeca, .sobre .miolo, .contato .miolo, footer .colunas { grid-template-columns: 1fr; }
-      .hero { min-height: 0; padding: 72px 0 56px; }
+      .hero { padding: 20px 14px 48px; }
+      .hero .painel { padding: 44px 24px 36px; border-radius: 22px; }
     }
     @media (max-width: 640px) {
       .miolo { padding: 0 20px; }
@@ -262,8 +273,7 @@
   </style>
 </head>
 <body class="carregando-ativo">
-  <canvas id="ondas" aria-hidden="true"></canvas>
-  <div class="veu" aria-hidden="true"></div>
+  <div class="fundo" aria-hidden="true"><div class="img"></div><div class="m m1"></div><div class="m m2"></div><div class="toque" id="toque"></div></div>
   <div class="progresso" id="progresso"></div>
 
   <div class="carregando" id="carregando" aria-hidden="true">
@@ -283,7 +293,7 @@
   </header>
 
   <!-- ABERTURA -->
-  <section class="hero">
+  <section class="hero"><div class="painel">
     <div class="miolo">
       <div>
         <div class="rotulo">Agência digital • Timóteo, MG</div>
@@ -306,7 +316,7 @@
         <div><b><span data-alvo="0"></span> surpresa</b><small>preço fechado antes de começar</small></div>
       </div>
     </div>
-  </section>
+  </div></section>
 
   <div class="faixa" aria-hidden="true"><div class="trilho" id="trilho">
     <span>Sites</span><span>Marketing</span><span>Identidade visual</span><span>Automação</span><span>Tráfego pago</span><span>Conteúdo</span><span>Cardápio digital</span><span>Agendamento online</span>
@@ -522,65 +532,16 @@
 <script>
   const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  // ---------- FUNDO VIVO: malha de pontos ondulando com luz, reage ao mouse ----------
+  // ---------- Fundo: brilho que segue o mouse ou o dedo, com inércia ----------
   (() => {
-    const cv = document.getElementById("ondas"), ctx = cv.getContext("2d", { alpha: false });
-    const celular = matchMedia("(pointer: coarse)").matches;
-    const GAP = celular ? 15 : 13;            // distância entre pontos
-    let W, H, dpr, cols, rows, t = 0, ativo = true;
-    let mx = -9999, my = -9999, sx = -9999, sy = -9999, forca = 0;
-    const redim = () => { dpr = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight; cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0); cols = Math.ceil(W / GAP) + 2; rows = Math.ceil(H / GAP) + 2; };
-    redim(); addEventListener("resize", redim);
-    addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; forca = 1; }, { passive: true });
-    addEventListener("pointerleave", () => { forca = 0; });
-    addEventListener("touchstart", (e) => { const p = e.touches[0]; if (p) { mx = p.clientX; my = p.clientY; forca = 1; } }, { passive: true });
-    addEventListener("touchend", () => { forca = 0; });
-    document.addEventListener("visibilitychange", () => { ativo = !document.hidden; if (ativo) { ultimo = performance.now(); requestAnimationFrame(quadro); } });
-
-    // altura da onda em cada ponto: três ondas somadas, lentas e largas
-    const altura = (x, y, t) => Math.sin(x * .0085 + t * .55) * Math.cos(y * .0062 - t * .38) * .9
-                                + Math.sin((x * .45 + y) * .0075 + t * .32) * .6
-                                + Math.sin((x - y * .6) * .0042 - t * .21) * .45;
-    const NIV = 14;                            // níveis de brilho (agrupa os pontos por cor para desenhar rápido)
-    const caminhos = Array.from({ length: NIV }, () => []);
-    let ultimo = performance.now(), grade = new Float32Array(0);
-
-    function quadro(agora) {
-      if (!ativo) return;
-      const dt = Math.min(.05, (agora - ultimo) / 1000); ultimo = agora;
-      if (!semMovimento) t += dt;
-      sx += (mx - sx) * .08; sy += (my - sy) * .08;    // o toque segue com inércia
-      const raioT = Math.max(W, H) * .16, r2 = raioT * raioT * 2;
-      ctx.fillStyle = "#050505"; ctx.fillRect(0, 0, W, H);
-      for (let k = 0; k < NIV; k++) caminhos[k].length = 0;
-      const ox = -GAP + ((t * 6) % GAP);        // a malha inteira desliza bem devagar
-      const C = cols + 1, R = rows + 1;
-      if (grade.length !== C * R) grade = new Float32Array(C * R);
-      for (let j = 0; j < R; j++) { const y = j * GAP; for (let i = 0; i < C; i++) { const x = i * GAP + ox; let z = altura(x, y, t); if (forca > 0) { const dx = x - sx, dy = y - sy; z += 1.8 * forca * Math.exp(-(dx * dx + dy * dy) / r2); } grade[j * C + i] = z; } }
-      for (let j = 0; j < rows; j++) {
-        const y = j * GAP, lin = j * C;
-        for (let i = 0; i < cols; i++) {
-          const x = i * GAP + ox, z = grade[lin + i];
-          // luz vindo do alto-esquerda: a face da onda virada para ela brilha
-          const dzx = grade[lin + i + 1] - z, dzy = grade[lin + C + i] - z;
-          let lum = .18 + (z + 2) * .09 + (-dzx * 1.6) + (-dzy * 1.1);
-          if (lum < .04) lum = .04; if (lum > 1) lum = 1;
-          const k = Math.min(NIV - 1, (lum * NIV) | 0);
-          caminhos[k].push(x, y, 1.05 + (z + 1.95) * .42);
-        }
-      }
-      for (let k = 0; k < NIV; k++) {
-        const c = caminhos[k]; if (!c.length) continue;
-        const a = (k + 1) / NIV;
-        ctx.fillStyle = "rgba(" + (150 + 105 * a | 0) + "," + (150 + 105 * a | 0) + "," + (155 + 100 * a | 0) + "," + (.05 + a * .62).toFixed(3) + ")";
-        ctx.beginPath();
-        for (let n = 0; n < c.length; n += 3) { ctx.moveTo(c[n] + c[n + 2], c[n + 1]); ctx.arc(c[n], c[n + 1], c[n + 2], 0, 6.2832); }
-        ctx.fill();
-      }
-      if (semMovimento) return;               // um quadro parado basta
-      requestAnimationFrame(quadro);
-    }
-    requestAnimationFrame(quadro);
+    if (semMovimento) return;
+    const m = document.getElementById("toque");
+    let ax = innerWidth / 2, ay = innerHeight / 2, tx = ax, ty = ay, apagar = null;
+    const mover = (x, y) => { tx = x; ty = y; m.style.opacity = "1"; clearTimeout(apagar); apagar = setTimeout(() => { m.style.opacity = "0"; }, 1600); };
+    addEventListener("pointermove", (e) => mover(e.clientX, e.clientY), { passive: true });
+    addEventListener("touchstart", (e) => { const t = e.touches[0]; if (t) mover(t.clientX, t.clientY); }, { passive: true });
+    addEventListener("touchmove", (e) => { const t = e.touches[0]; if (t) mover(t.clientX, t.clientY); }, { passive: true });
+    (function passo() { ax += (tx - ax) * .07; ay += (ty - ay) * .07; m.style.transform = "translate(" + ax.toFixed(1) + "px," + ay.toFixed(1) + "px)"; requestAnimationFrame(passo); })();
   })();
 
   // ---------- Carregando: logo, barra curta, entra ----------
