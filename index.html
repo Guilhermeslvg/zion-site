@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Zion — Sites, marketing e identidade para marcas que querem crescer</title>
+  <meta name="description" content="Agência Zion: sites, marketing digital, identidade visual e automação para negócios de Timóteo e do Vale do Aço. Preço fechado antes de começar." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================================
+       TROQUE OS TEXTOS DIRETO NO HTML LÁ EMBAIXO.
+       Cores da marca ficam aqui:
+       ========================================================= */
+    :root {
+      --fundo: #050505;                 /* preto do fundo */
+      --texto: #f3f3f3;                 /* texto principal */
+      --cinza: #a6a6a6;                 /* texto de apoio */
+      --cinza-2: #6f6f6f;               /* texto discreto */
+      --linha: rgba(255,255,255,.1);    /* linhas divisórias */
+      --vidro: rgba(255,255,255,.045);  /* cartões de vidro escuro */
+      --vidro-borda: rgba(255,255,255,.1);
+      --prata-1: #ffffff; --prata-2: #c9c9c9; --prata-3: #7a7a7a; --prata-4: #3a3a3a; /* metal escovado */
+      --zap: #22c55e;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* fundo: preto com a malha de pontos em onda (img/zion-fundo.png) e um brilho prata que segue o mouse */
+    .fundo { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: var(--fundo); }
+    .fundo i { position: absolute; inset: -6%; background: url("img/zion-fundo.png") center / cover no-repeat; opacity: .9; transition: transform .9s cubic-bezier(.22,1,.36,1); will-change: transform; }
+    .fundo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,5,5,.15) 0%, rgba(5,5,5,0) 30%, rgba(5,5,5,.35) 100%); pointer-events: none; }
+    .fundo b { position: absolute; left: 0; top: 0; width: 60vmax; height: 60vmax; margin: -30vmax 0 0 -30vmax; border-radius: 50%; pointer-events: none;
+      background: radial-gradient(circle, rgba(255,255,255,.22) 0%, rgba(200,200,200,.1) 30%, rgba(120,120,120,0) 62%); filter: blur(30px); mix-blend-mode: screen; opacity: 0; will-change: transform; }
+
+    body { background: var(--fundo); color: var(--texto); font-family: "Inter", system-ui, -apple-system, sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    a { color: inherit; }
+    .miolo { max-width: 1120px; margin: 0 auto; padding: 0 28px; }
+
+    /* texto em metal escovado (mesmo brilho do logo) */
+    .metal { background: linear-gradient(180deg, var(--prata-1) 0%, var(--prata-2) 38%, var(--prata-3) 52%, var(--prata-2) 64%, var(--prata-1) 100%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+    /* cabeçalho */
+    .topo { position: sticky; top: 0; z-index: 20; background: rgba(5,5,5,.55); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-bottom: 1px solid var(--linha); }
+    .topo .miolo { display: flex; justify-content: space-between; align-items: center; height: 68px; }
+    .quem { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .quem .foto { width: 40px; height: 40px; border-radius: 10px; object-fit: cover; display: block; border: 1px solid var(--vidro-borda); }
+    .quem b { display: block; font-size: 14px; font-weight: 600; line-height: 1.2; letter-spacing: .28em; }
+    .quem span { font-size: 12px; color: var(--cinza); }
+    .nav { display: flex; gap: 26px; font-size: 14px; font-weight: 500; }
+    .nav a { text-decoration: none; color: var(--cinza); transition: color .2s; }
+    .nav a:hover { color: var(--texto); }
+
+    /* abertura */
+    .hero { padding: 40px 28px 56px; position: relative; }
+    .hero .painel { position: relative; max-width: 1120px; margin: 0 auto; padding: 88px 56px 64px; border-radius: 32px; overflow: hidden; border: 1px solid var(--vidro-borda); background: rgba(10,10,10,.55); box-shadow: 0 40px 100px rgba(0,0,0,.6), inset 0 1px 0 rgba(255,255,255,.12); isolation: isolate; backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); }
+    /* logo grande e apagado no canto direito do painel */
+    .hero .painel::before { content: ""; position: absolute; right: -6%; top: -10%; width: 62%; aspect-ratio: 1; z-index: -2; background: url("img/zion-logo.png") center / contain no-repeat; opacity: .55; transform: scale(1.06); transition: transform 8s ease-out; mask-image: radial-gradient(60% 60% at 50% 50%, #000 40%, transparent 100%); -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000 40%, transparent 100%); }
+    body.pronto .hero .painel::before { transform: scale(1); }
+    .hero .painel::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(100deg, rgba(5,5,5,.9) 0%, rgba(5,5,5,.75) 45%, rgba(5,5,5,.25) 100%); }
+    .hero .painel .grade { position: absolute; inset: 0; z-index: -1; background-image: linear-gradient(rgba(255,255,255,.07) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.07) 1px, transparent 1px); background-size: 56px 56px; mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); -webkit-mask-image: radial-gradient(38% 55% at var(--gx, 70%) var(--gy, 30%), #000, transparent); opacity: .8; pointer-events: none; }
+    .hero .miolo { position: relative; display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center; padding: 0; }
+    .eyebrow { display: flex; align-items: center; gap: 10px; font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 22px; }
+    .eyebrow::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--prata-2); box-shadow: 0 0 10px rgba(255,255,255,.6); }
+    /* manchete: geométrica, pesada, com o brilho do metal passando */
+    .hero h1 { font-family: "Outfit", "Inter", sans-serif; font-weight: 900; letter-spacing: -.04em; line-height: .98; font-size: clamp(42px, 5.4vw, 66px); }
+    .hero h1 .l > span { background: linear-gradient(180deg, #ffffff 0%, #d6d6d6 35%, #6b6b6b 50%, #d6d6d6 62%, #ffffff 100%); background-size: 100% 240%; -webkit-background-clip: text; background-clip: text; color: transparent; padding-bottom: .06em; margin-bottom: -.06em; animation: faixa 7s ease-in-out infinite alternate; }
+    .hero h1 .l:nth-child(2) > span { animation-delay: -2.3s; }
+    .hero h1 .l:nth-child(3) > span { animation-delay: -4.6s; }
+    .hero h1 em { font-style: normal; font-weight: 900; }
+    @keyframes faixa { from { background-position: 0 0%; } to { background-position: 0 100%; } }
+    @media (prefers-reduced-motion: reduce) { .hero h1 .l > span { animation: none; } }
+    /* cartão de vidro escuro com apoio, provas e botões */
+    .hero .lado.vidro { padding: 26px 26px 24px; border-radius: 22px; background: rgba(255,255,255,.05); border: 1px solid var(--vidro-borda); backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); box-shadow: 0 20px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.14); }
+    .hero .lado.vidro p { font-size: 18px; line-height: 1.5; color: var(--texto); margin-bottom: 18px; max-width: none; }
+    .provas { list-style: none; display: grid; gap: 9px; margin: 0 0 22px; padding: 0; font-size: 14px; color: var(--cinza); }
+    .provas li { position: relative; padding-left: 20px; }
+    .provas li::before { content: ""; position: absolute; left: 0; top: .72em; width: 10px; height: 2px; background: linear-gradient(90deg, #fff, #7a7a7a); border-radius: 2px; }
+    .provas b { color: var(--texto); font-weight: 600; }
+    @media (max-width: 820px) { .hero .lado.vidro { padding: 20px 18px; } .hero .lado.vidro p { font-size: 16px; } }
+    .botoes { display: flex; flex-wrap: wrap; gap: 10px; }
+
+    /* botões: pílula de metal escovado e pílula vazada com borda prata */
+    .btn { position: relative; display: inline-flex; align-items: center; gap: 10px; padding: 15px 26px; font-size: 14.5px; font-weight: 600; text-decoration: none; border-radius: 999px; color: var(--texto); isolation: isolate; overflow: hidden; will-change: transform; transition: transform .2s, box-shadow .3s; }
+    .btn .ico { width: 16px; height: 16px; flex: none; position: relative; z-index: 2; }
+    .btn.solido { color: #0a0a0a; background: linear-gradient(180deg, #ffffff 0%, #d9d9d9 45%, #9a9a9a 55%, #e6e6e6 100%); box-shadow: 0 10px 30px rgba(255,255,255,.12), inset 0 1px 0 #fff; }
+    .btn.solido::after { content: ""; position: absolute; inset: 0; z-index: 1; border-radius: inherit; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.75) 50%, transparent 70%); transform: translateX(-120%); transition: transform .8s ease; pointer-events: none; }
+    .btn.solido:hover::after { transform: translateX(120%); }
+    .btn.solido:hover { box-shadow: 0 14px 40px rgba(255,255,255,.2), inset 0 1px 0 #fff; }
+    .btn.vazado { background: linear-gradient(rgba(12,12,12,.7), rgba(12,12,12,.7)) padding-box, linear-gradient(90deg, #ffffff, #5c5c5c, #dcdcdc) border-box; border: 1.5px solid transparent; backdrop-filter: blur(8px); }
+    .btn.vazado::before { content: ""; position: absolute; inset: 0; z-index: 0; border-radius: inherit; background: rgba(255,255,255,.08); opacity: 0; transition: opacity .3s; }
+    .btn.vazado:hover::before { opacity: 1; }
+    .btn .rot { display: block; position: relative; z-index: 2; line-height: 1.3; transition: transform .45s cubic-bezier(.22,1,.36,1); }
+    .btn .rot::after { content: attr(data-t); position: absolute; left: 0; top: calc(100% + 15px); white-space: nowrap; }
+    .btn:hover .rot { transform: translateY(calc(-100% - 15px)); }
+
+    /* seções */
+    section { padding: 80px 0; border-top: 1px solid var(--linha); }
+    .rotulo { font-size: 11.5px; letter-spacing: .22em; color: var(--cinza); margin-bottom: 18px; }
+    h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+    h2 em { font-style: italic; font-weight: 400; color: var(--cinza); }
+    .cabeca { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: end; margin-bottom: 40px; }
+    .cabeca p { color: var(--cinza); max-width: 42ch; }
+
+    /* serviços: linhas que abrem */
+    .linhas { border-top: 1px solid var(--linha); }
+    .linhas details { border-bottom: 1px solid var(--linha); }
+    .linhas summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 48px 1fr auto 44px; align-items: center; gap: 18px; padding: 26px 0; }
+    .linhas summary::-webkit-details-marker { display: none; }
+    .linhas .n { font-size: 12px; color: var(--cinza-2); font-variant-numeric: tabular-nums; }
+    .linhas .t { font-size: clamp(20px, 2.4vw, 26px); font-weight: 600; letter-spacing: -.02em; }
+    .linhas .p { font-size: 14px; color: var(--cinza); white-space: nowrap; }
+    .linhas .mais { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: var(--vidro); display: grid; place-items: center; font-size: 20px; font-weight: 300; transition: background .2s, color .2s, transform .55s cubic-bezier(.34,1.56,.64,1); }
+    .linhas summary:hover .mais { background: var(--texto); color: #050505; }
+    .linhas details[open] .mais { transform: rotate(45deg); background: var(--texto); color: #050505; }
+    .linhas .corpo { display: grid; grid-template-columns: 48px 1fr; gap: 18px; padding: 0 0 28px; overflow: hidden; }
+    .linhas .corpo p { color: var(--cinza); max-width: 60ch; font-size: 15px; }
+    .linhas .corpo ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .linhas .corpo li { font-size: 13px; padding: 7px 12px; background: var(--vidro); border: 1px solid var(--vidro-borda); border-radius: 999px; color: var(--cinza); }
+    .linhas .corpo a { display: inline-block; margin-top: 18px; font-size: 14px; font-weight: 500; text-decoration: none; border-bottom: 1px solid var(--texto); }
+
+    /* portfólio: grade de trabalhos */
+    .trabalhos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .trabalho { position: relative; display: block; border-radius: 20px; overflow: hidden; aspect-ratio: 4/3; background: #0d0d0d; border: 1px solid var(--vidro-borda); text-decoration: none; box-shadow: 0 20px 50px rgba(0,0,0,.5); }
+    .trabalho img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; transform: scale(1.02); transition: transform 1.2s cubic-bezier(.22,1,.36,1), filter .6s; filter: saturate(.85); }
+    .trabalho:hover img { transform: scale(1.08); filter: saturate(1); }
+    .trabalho .legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 18px 16px; background: linear-gradient(180deg, rgba(5,5,5,0), rgba(5,5,5,.9)); }
+    .trabalho b { display: block; font-size: 15px; font-weight: 600; }
+    .trabalho span { font-size: 12.5px; color: var(--cinza); letter-spacing: .08em; }
+
+    /* sobre */
+    .sobre .miolo { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; }
+    .retrato { aspect-ratio: 1; border-radius: 24px; overflow: hidden; background: #000; border: 1px solid var(--vidro-borda); box-shadow: 0 30px 80px rgba(0,0,0,.6); }
+    .retrato img { width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
+    .sobre p { color: var(--cinza); margin-top: 16px; max-width: 52ch; }
+    .pilulas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 30px; }
+    .pilula { padding: 22px 20px; border-radius: 22px; background: var(--vidro); border: 1px solid var(--vidro-borda); backdrop-filter: blur(10px); }
+    .pilula b { display: block; font-size: 22px; font-weight: 600; letter-spacing: -.03em; line-height: 1.1; }
+    .pilula span { display: block; font-size: 13px; margin-top: 6px; color: var(--cinza); }
+
+    .ig { width: 18px; height: 18px; display: block; }
+    .nav .insta { display: inline-flex; align-items: center; color: var(--cinza); }
+    .nav .insta:hover { color: var(--texto); }
+    .insta-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; font-weight: 500; color: var(--texto); text-decoration: none; padding: 9px 16px; border: 1px solid var(--vidro-borda); border-radius: 999px; background: var(--vidro); backdrop-filter: blur(8px); transition: border-color .2s, transform .2s; }
+    .insta-link:hover { border-color: var(--texto); transform: translateY(-1px); }
+    footer a { color: inherit; text-decoration: none; border-bottom: 1px solid transparent; }
+    footer a:hover { border-color: currentColor; }
+
+    /* questionário rápido */
+    .quiz { position: fixed; inset: 0; z-index: 90; display: grid; place-items: center; padding: 20px; background: rgba(0,0,0,.6); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); opacity: 0; pointer-events: none; transition: opacity .3s; }
+    .quiz.aberto { opacity: 1; pointer-events: auto; }
+    .quiz-caixa { position: relative; width: min(560px, 100%); padding: 40px 40px 28px; border-radius: 28px; background: rgba(14,14,14,.92); border: 1px solid var(--vidro-borda); box-shadow: 0 40px 100px rgba(0,0,0,.7), inset 0 1px 0 rgba(255,255,255,.12); transform: translateY(14px) scale(.98); transition: transform .35s cubic-bezier(.22,1,.36,1); }
+    .quiz.aberto .quiz-caixa { transform: none; }
+    .quiz-fechar { position: absolute; top: 16px; right: 16px; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: var(--vidro); color: var(--texto); font-size: 16px; cursor: pointer; }
+    .quiz-passos { display: flex; gap: 6px; margin-bottom: 26px; }
+    .quiz-passos i { flex: 1; height: 4px; border-radius: 2px; background: rgba(255,255,255,.12); transition: background .3s; }
+    .quiz-passos i.feito { background: var(--texto); }
+    .quiz-n { font-size: 11.5px; letter-spacing: .22em; color: var(--cinza-2); margin-bottom: 10px; }
+    .quiz-passo h3 { font-size: 26px; font-weight: 600; letter-spacing: -.02em; line-height: 1.15; margin-bottom: 20px; }
+    .quiz-passo p { color: var(--cinza); font-size: 14.5px; margin: -8px 0 16px; }
+    .quiz-opcoes { display: grid; gap: 10px; }
+    .quiz-opcoes button { text-align: left; padding: 15px 18px; font: inherit; font-size: 15.5px; font-weight: 500; color: var(--texto); background: var(--vidro); border: 1.5px solid var(--vidro-borda); border-radius: 14px; cursor: pointer; transition: border-color .2s, transform .2s, background .2s; }
+    .quiz-opcoes button:hover { border-color: var(--texto); transform: translateX(3px); }
+    .quiz-opcoes button.marcado { background: var(--texto); color: #050505; border-color: var(--texto); }
+    #quiz-ideia { width: 100%; padding: 14px 16px; font: inherit; font-size: 15px; color: var(--texto); border: 1.5px solid var(--vidro-borda); border-radius: 14px; background: var(--vidro); resize: vertical; outline: none; margin-bottom: 16px; }
+    #quiz-ideia:focus { border-color: var(--texto); }
+    .quiz-enviar { width: 100%; justify-content: center; }
+    .quiz-pular { display: block; margin: 18px auto 0; background: none; border: none; font: inherit; font-size: 13px; color: var(--cinza-2); cursor: pointer; text-decoration: underline; }
+    .quiz-pular:hover { color: var(--texto); }
+    .quiz-passo.entra { animation: quizEntra .35s cubic-bezier(.22,1,.36,1); }
+    @keyframes quizEntra { from { opacity: 0; transform: translateX(18px); } }
+    @media (max-width: 520px) { .quiz-caixa { padding: 30px 22px 22px; } .quiz-passo h3 { font-size: 22px; } }
+
+    /* contato */
+    .contato { text-align: center; }
+    .contato h2 { max-width: 20ch; margin: 0 auto; }
+    .contato p { color: var(--cinza); margin: 18px auto 28px; max-width: 44ch; }
+    .contato small { display: block; margin-top: 16px; color: var(--cinza-2); font-size: 13px; }
+    footer { border-top: 1px solid var(--linha); padding: 26px 0; font-size: 13px; color: var(--cinza); }
+    footer .miolo { display: flex; justify-content: space-between; gap: 16px; }
+
+    /* botão flutuante de WhatsApp */
+    .flutuante { position: fixed; right: 22px; bottom: 22px; z-index: 30; display: inline-flex; align-items: center; gap: 10px; padding: 14px 20px; color: #052e16; font-weight: 600; font-size: 14px; border-radius: 999px; text-decoration: none; overflow: hidden; isolation: isolate; box-shadow: 0 10px 30px rgba(34,197,94,.3); transition: transform .2s; background: #e7fbee; }
+    .flutuante::before { content: ""; position: absolute; inset: -45%; z-index: -1; filter: blur(14px); background: radial-gradient(40% 60% at 25% 50%, #22c55e, transparent 62%), radial-gradient(35% 55% at 75% 35%, #a7f3d0, transparent 60%), radial-gradient(35% 50% at 60% 95%, #86efac, transparent 60%); animation: aurora 8s ease-in-out infinite alternate; }
+    @keyframes aurora { 0% { transform: rotate(0deg) scale(1); } 50% { transform: rotate(18deg) scale(1.12); } 100% { transform: rotate(-12deg) scale(1.05); } }
+    .flutuante:hover { transform: translateY(-2px); }
+    .flutuante svg { width: 18px; height: 18px; }
+
+    /* carregando: tela preta com o logo e o contador */
+    .carregando { position: fixed; inset: 0; z-index: 100; background: #050505; color: #fff; display: grid; place-items: center; transition: opacity .6s ease, visibility .6s; }
+    .carregando.pronto { opacity: 0; visibility: hidden; }
+    .carregando .caixa { text-align: center; }
+    .carregando .logo { width: 120px; height: 120px; object-fit: cover; margin: 0 auto 18px; display: block; border-radius: 20px; }
+    .carregando .txt { font-size: 12px; letter-spacing: .3em; color: #8a8a8a; margin-bottom: 14px; }
+    .carregando .num { font-size: clamp(64px, 12vw, 120px); font-weight: 600; letter-spacing: -.04em; line-height: 1; font-variant-numeric: tabular-nums; }
+    .carregando .num small { font-size: .35em; font-weight: 400; color: #8a8a8a; margin-left: 4px; }
+    .carregando .barra { width: min(320px, 60vw); height: 1px; background: #262626; margin: 26px auto 0; overflow: hidden; }
+    .carregando .barra i { display: block; height: 100%; width: 0; background: #fff; }
+    body.carregando-ativo { overflow: hidden; }
+
+    /* barra de progresso da leitura */
+    .progresso { position: fixed; left: 0; top: 0; height: 2px; width: 0; background: linear-gradient(90deg, #fff, #8a8a8a); z-index: 40; transition: width .1s linear; }
+
+    /* cursor personalizado (só com mouse) */
+    .cursor { position: fixed; left: 0; top: 0; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; pointer-events: none; z-index: 60; transition: transform .25s cubic-bezier(.22,1,.36,1), opacity .3s; mix-blend-mode: difference; background: #fff; opacity: 0; }
+    body.com-mouse .cursor { opacity: 1; }
+    body.com-mouse.cursor-grande .cursor { transform: scale(4.5); }
+    @media (pointer: coarse) { .cursor { display: none; } }
+
+    /* manchete e lado da abertura entrando depois do carregando */
+    h1 .l { display: block; overflow: hidden; }
+    h1 .l > span { display: block; transform: translateY(110%); transition: transform 1s cubic-bezier(.22,1,.36,1); }
+    body.pronto h1 .l:nth-child(1) > span { transform: none; transition-delay: .05s; }
+    body.pronto h1 .l:nth-child(2) > span { transform: none; transition-delay: .17s; }
+    body.pronto h1 .l:nth-child(3) > span { transform: none; transition-delay: .29s; }
+    .hero .eyebrow, .hero .lado > * { opacity: 0; transform: translateY(14px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); }
+    body.pronto .hero .eyebrow { opacity: 1; transform: none; transition-delay: .4s; }
+    body.pronto .hero .lado > * { opacity: 1; transform: none; }
+    body.pronto .hero .lado > :nth-child(1) { transition-delay: .55s; }
+    body.pronto .hero .lado > :nth-child(2) { transition-delay: .7s; }
+    body.pronto .hero .lado > :nth-child(3) { transition-delay: .85s; }
+
+    /* cabeçalho que encolhe ao rolar */
+    .topo .miolo, .quem .foto { transition: height .35s cubic-bezier(.22,1,.36,1), width .35s cubic-bezier(.22,1,.36,1); }
+    body.rolou .topo .miolo { height: 54px; }
+    body.rolou .quem .foto { width: 30px; height: 30px; }
+    body.rolou .quem span span { display: none; }
+
+    /* sublinhado do menu que acompanha a seção */
+    .nav { position: relative; }
+    .nav .traco { position: absolute; bottom: -6px; left: 0; height: 1px; width: 0; background: var(--texto); transition: left .4s cubic-bezier(.22,1,.36,1), width .4s cubic-bezier(.22,1,.36,1); }
+
+    /* revelação por linhas com defasagem */
+    .rev { opacity: 0; transform: translateY(18px); transition: opacity .8s cubic-bezier(.22,1,.36,1), transform .8s cubic-bezier(.22,1,.36,1); transition-delay: calc(var(--i, 0) * 90ms); }
+    .rev.vivo { opacity: 1; transform: none; }
+
+    @media (max-width: 820px) {
+      .miolo { padding: 0 20px; }
+      .nav { display: none; }
+      .hero { padding: 16px 12px 36px; }
+      .hero .painel { padding: 56px 24px 40px; border-radius: 22px; }
+      .hero .painel::before { width: 90%; right: -25%; top: -8%; opacity: .35; }
+      .hero .miolo, .cabeca, .sobre .miolo { grid-template-columns: 1fr; gap: 24px; }
+      section { padding: 60px 0; }
+      .linhas summary { grid-template-columns: 34px 1fr 36px; }
+      .linhas .p { display: none; }
+      .linhas .mais { width: 36px; height: 36px; }
+      .linhas .corpo { grid-template-columns: 1fr; }
+      .trabalhos { grid-template-columns: 1fr 1fr; gap: 10px; }
+      .retrato { max-width: 320px; }
+      .pilulas { grid-template-columns: 1fr; }
+      .flutuante { right: 16px; bottom: 16px; }
+      footer .miolo { flex-direction: column; gap: 4px; }
+    }
+    @media (max-width: 480px) { .trabalhos { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { .rev { opacity: 1; transform: none; } }
+  </style>
+</head>
+<body class="carregando-ativo">
+  <div class="fundo" aria-hidden="true"><i></i><b id="toque"></b></div>
+  <div class="progresso" id="progresso"></div>
+  <div class="cursor" id="cursor"></div>
+
+  <div class="carregando" id="carregando" aria-hidden="true">
+    <div class="caixa">
+      <img class="logo" src="img/zion-logo.png" alt="" />
+      <div class="txt">CARREGANDO</div>
+      <div class="num"><span id="pct">0</span><small>%</small></div>
+      <div class="barra"><i id="barra"></i></div>
+    </div>
+  </div>
+
+  <header class="topo">
+    <div class="miolo">
+      <a class="quem" href="#"><img class="foto" src="img/zion-logo.png" alt="Zion" /><span><b class="metal">ZION</b><span>Sites, marketing e identidade</span></span></a>
+      <nav class="nav"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a><a class="insta" href="https://instagram.com/agenczion" target="_blank" rel="noopener" aria-label="Instagram"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></a><i class="traco" id="traco"></i></nav>
+    </div>
+  </header>
+
+  <!-- ABERTURA -->
+  <section class="hero">
+    <div class="painel"><div class="grade"></div>
+    <div class="miolo">
+      <div>
+        <div class="eyebrow">SITES • MARKETING • IDENTIDADE • AUTOMAÇÃO</div>
+        <h1><span class="l"><span>Sua marca</span></span><span class="l"><span>com presença</span></span><span class="l"><span>de <em>gente grande.</em></span></span></h1>
+      </div>
+      <div class="lado vidro">
+        <p>A Zion cria o site, cuida do marketing e constrói a identidade da sua empresa. Tudo em um lugar só, com uma equipe que fala a sua língua.</p>
+        <ul class="provas">
+          <li><b>Entrega rápida.</b> Projetos prontos em dias, não em meses.</li>
+          <li><b>Preço fechado</b> antes de começar, sem surpresa.</li>
+          <li><b>Você só paga</b> quando estiver no ar e aprovado.</li>
+        </ul>
+        <div class="botoes">
+          <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento"><span class="rot" data-t="Solicitar orçamento">Solicitar orçamento</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
+          <a class="btn vazado magnetico" href="#portfolio"><span class="rot" data-t="Ver trabalhos">Ver trabalhos</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></a>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- SERVIÇOS -->
+  <section id="servicos">
+    <div class="miolo">
+      <div class="cabeca rev">
+        <div><div class="rotulo">[ 01 ] SERVIÇOS</div><h2>O que a Zion faz.</h2></div>
+        <p>Cada projeto começa com uma conversa e um orçamento fechado. Sem surpresa.</p>
+      </div>
+      <div class="linhas rev">
+        <details open class="rev" style="--i:1">
+          <summary><span class="n">01</span><span class="t">Sites</span><span class="p">rápidos e no seu domínio</span><span class="mais">+</span></summary>
+          <div class="corpo"><span></span><div>
+            <p>Sites e páginas que aparecem no Google e levam o cliente direto ao seu WhatsApp. Rápidos, feitos para celular e no seu domínio.</p>
+            <ul><li>Página de vendas</li><li>Site institucional</li><li>Cardápio digital</li><li>Agendamento online</li></ul>
+            <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento%20de%20site">Pedir orçamento</a>
+          </div></div>
+        </details>
+        <details class="rev" style="--i:2">
+          <summary><span class="n">02</span><span class="t">Marketing</span><span class="p">conteúdo e anúncios</span><span class="mais">+</span></summary>
+          <div class="corpo"><span></span><div>
+            <p>Instagram com cara de marca de verdade: posts, artes, legendas e anúncios que trazem cliente. Você cuida do negócio, a gente cuida da presença.</p>
+            <ul><li>Gestão de Instagram</li><li>Artes e vídeos</li><li>Tráfego pago</li><li>Planejamento mensal</li></ul>
+            <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento%20de%20marketing">Pedir orçamento</a>
+          </div></div>
+        </details>
+        <details class="rev" style="--i:3">
+          <summary><span class="n">03</span><span class="t">Identidade visual</span><span class="p">logo e marca</span><span class="mais">+</span></summary>
+          <div class="corpo"><span></span><div>
+            <p>Logo, cores, tipografia e o material que vai junto: cartão, uniforme, fachada, redes. Uma marca que o cliente reconhece de longe.</p>
+            <ul><li>Logo</li><li>Paleta e fontes</li><li>Cartão e papelaria</li><li>Manual da marca</li></ul>
+            <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento%20de%20identidade%20visual">Pedir orçamento</a>
+          </div></div>
+        </details>
+        <details class="rev" style="--i:4">
+          <summary><span class="n">04</span><span class="t">Automação</span><span class="p">menos trabalho manual</span><span class="mais">+</span></summary>
+          <div class="corpo"><span></span><div>
+            <p>Tarefas repetitivas viram automáticas: WhatsApp que responde sozinho, planilhas que se preenchem, relatórios que chegam prontos e assistentes de IA.</p>
+            <ul><li>WhatsApp automático</li><li>Planilhas e relatórios</li><li>Sistemas sob medida</li><li>Assistentes de IA</li></ul>
+            <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento%20de%20automa%C3%A7%C3%A3o">Pedir orçamento</a>
+          </div></div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFÓLIO: troque as imagens em img/ e os nomes aqui -->
+  <section id="portfolio">
+    <div class="miolo">
+      <div class="cabeca rev">
+        <div><div class="rotulo">[ 02 ] PORTFÓLIO</div><h2>Trabalhos <em>recentes.</em></h2></div>
+        <p>Alguns dos projetos que saíram da Zion. Cada um feito sob medida para o negócio.</p>
+      </div>
+      <div class="trabalhos">
+        <a class="trabalho rev" style="--i:1" href="#contato"><img src="img/barbearia.jpg" alt="Site de barbearia" loading="lazy" /><div class="legenda"><b>Barbearia</b><span>SITE + AGENDAMENTO</span></div></a>
+        <a class="trabalho rev" style="--i:2" href="#contato"><img src="img/clinica.jpg" alt="Site de clínica" loading="lazy" /><div class="legenda"><b>Clínica</b><span>SITE INSTITUCIONAL</span></div></a>
+        <a class="trabalho rev" style="--i:3" href="#contato"><img src="img/pizzaria.jpg" alt="Site de pizzaria" loading="lazy" /><div class="legenda"><b>Pizzaria</b><span>CARDÁPIO DIGITAL</span></div></a>
+        <a class="trabalho rev" style="--i:4" href="#contato"><img src="img/estetica.jpg" alt="Site de estética" loading="lazy" /><div class="legenda"><b>Estética</b><span>SITE + INSTAGRAM</span></div></a>
+        <a class="trabalho rev" style="--i:5" href="#contato"><img src="img/academia.jpg" alt="Site de academia" loading="lazy" /><div class="legenda"><b>Academia</b><span>PÁGINA DE VENDAS</span></div></a>
+        <a class="trabalho rev" style="--i:6" href="#contato"><img src="img/advogado.jpg" alt="Site de advogado" loading="lazy" /><div class="legenda"><b>Advocacia</b><span>SITE INSTITUCIONAL</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section id="sobre" class="sobre">
+    <div class="miolo">
+      <div class="retrato rev"><img src="img/zion-logo.png" alt="Zion" /></div>
+      <div class="rev">
+        <div class="rotulo">[ 03 ] SOBRE</div>
+        <h2>Essa é a <em>Zion.</em></h2>
+        <p>Somos uma agência de Timóteo, Minas Gerais, que junta design, tecnologia e marketing em um lugar só. Criamos sites, cuidamos de redes sociais, desenhamos marcas e automatizamos o que toma seu tempo.</p>
+        <p>Nosso jeito de trabalhar é simples: você conta a ideia, a gente diz o que dá para fazer e quanto custa, e construímos junto.</p>
+        <div class="pilulas">
+          <div class="pilula"><b>Tudo em um</b><span>site, marca, redes e automação</span></div>
+          <div class="pilula"><b>Preço fechado</b><span>combinado antes de começar</span></div>
+          <div class="pilula"><b>Vale do Aço</b><span>Timóteo, Fabriciano e Ipatinga</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTATO -->
+  <section id="contato" class="contato">
+    <div class="miolo rev">
+      <div class="rotulo">[ 04 ] CONTATO</div>
+      <h2>Bora colocar sua marca no mapa.</h2>
+      <p>Chama no WhatsApp, conta o que você precisa, e a gente te diz o caminho e o orçamento.</p>
+      <a class="btn solido magnetico" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20vi%20o%20site%20e%20quero%20saber%20mais"><span class="rot" data-t="Chamar no WhatsApp">Chamar no WhatsApp</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
+      <small>(31) 98916-5103 · Timóteo, Coronel Fabriciano e Ipatinga</small>
+      <a class="insta-link" href="https://instagram.com/agenczion" target="_blank" rel="noopener"><svg class="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg> @agenczion</a>
+    </div>
+  </section>
+
+  <footer><div class="miolo"><span>Zion · Sites, marketing, identidade visual e automação.</span><span><a href="https://instagram.com/agenczion" target="_blank" rel="noopener">@agenczion</a> · Timóteo, MG · 2026</span></div></footer>
+
+  <a class="flutuante" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20or%C3%A7amento">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.6.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.1.6a2.6 2.6 0 0 0 1.7-1.2 2.1 2.1 0 0 0 .2-1.2c-.1-.1-.3-.2-.5-.3z"/></svg>
+    Solicitar orçamento
+  </a>
+
+<!-- questionário rápido antes do WhatsApp -->
+<div class="quiz" id="quiz" aria-hidden="true">
+  <div class="quiz-caixa">
+    <button class="quiz-fechar" id="quiz-fechar" aria-label="Fechar">✕</button>
+    <div class="quiz-passos"><i></i><i></i><i></i><i></i></div>
+
+    <section class="quiz-passo" data-passo="1">
+      <div class="quiz-n">1 de 4</div>
+      <h3>O que você precisa?</h3>
+      <div class="quiz-opcoes" data-chave="precisa">
+        <button type="button">Site</button><button type="button">Marketing / Instagram</button><button type="button">Identidade visual</button><button type="button">Automação</button><button type="button">Ainda não sei</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="2" hidden>
+      <div class="quiz-n">2 de 4</div>
+      <h3>Para quem é?</h3>
+      <div class="quiz-opcoes" data-chave="para">
+        <button type="button">Minha empresa</button><button type="button">Projeto pessoal</button><button type="button">Um negócio que estou começando</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="3" hidden>
+      <div class="quiz-n">3 de 4</div>
+      <h3>Qual a pressa?</h3>
+      <div class="quiz-opcoes" data-chave="prazo">
+        <button type="button">Para ontem</button><button type="button">Nos próximos dias</button><button type="button">Sem pressa, quero conhecer</button>
+      </div>
+    </section>
+
+    <section class="quiz-passo" data-passo="4" hidden>
+      <div class="quiz-n">4 de 4</div>
+      <h3>Vamos conversar para entender melhor e buscar a melhor opção.</h3>
+      <p>Se quiser, conta em uma frase o que você imagina. Aí a gente te chama já sabendo por onde começar.</p>
+      <textarea id="quiz-ideia" rows="3" placeholder="ex.: quero um site e alguém cuidando do meu Instagram"></textarea>
+      <a class="btn solido quiz-enviar" id="quiz-enviar" href="#" target="_blank" rel="noopener"><span class="rot" data-t="Conversar no WhatsApp">Conversar no WhatsApp</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
+    </section>
+
+    <button type="button" class="quiz-pular" id="quiz-pular">prefiro só chamar no WhatsApp</button>
+  </div>
+</div>
+
+<script>
+  // Carregando: 0 -> 100% em 3 segundos, com aceleração natural
+  (() => {
+    const tela = document.getElementById("carregando"), pct = document.getElementById("pct"), barra = document.getElementById("barra");
+    const DUR = 3000, t0 = performance.now();
+    const passo = (agora) => {
+      const t = Math.min(1, (agora - t0) / DUR);
+      const v = Math.round((1 - Math.pow(1 - t, 2.2)) * 100);
+      pct.textContent = v; barra.style.width = v + "%";
+      if (t < 1) requestAnimationFrame(passo);
+      else setTimeout(() => { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); }, 250);
+    };
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); }
+    else requestAnimationFrame(passo);
+  })();
+
+  // Questionário: intercepta os botões de orçamento e monta a mensagem do WhatsApp
+  (() => {
+    const quiz = document.getElementById("quiz"), passos = [...quiz.querySelectorAll(".quiz-passo")], barras = [...quiz.querySelectorAll(".quiz-passos i")];
+    const ZAP = "https://wa.me/5531989165103?text=";   // <-- número do WhatsApp da agência
+    const resp = {};
+    let atual = 0;
+
+    const mostrar = (i) => {
+      atual = i;
+      passos.forEach((s, k) => { s.hidden = k !== i; s.classList.toggle("entra", k === i); });
+      barras.forEach((b, k) => b.classList.toggle("feito", k <= i));
+      if (i === 3) montarLink();
+    };
+    const abrir = () => { Object.keys(resp).forEach((k) => delete resp[k]); quiz.querySelectorAll(".marcado").forEach((b) => b.classList.remove("marcado")); document.getElementById("quiz-ideia").value = ""; mostrar(0); quiz.classList.add("aberto"); quiz.setAttribute("aria-hidden", "false"); document.body.style.overflow = "hidden"; };
+    const fechar = () => { quiz.classList.remove("aberto"); quiz.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
+
+    function montarLink() {
+      const ideia = document.getElementById("quiz-ideia").value.trim();
+      const linhas = ["Oi Zion! Vi o site de vocês.", "Preciso de: " + (resp.precisa || "ainda não sei"), "Para: " + (resp.para || "não informei"), "Prazo: " + (resp.prazo || "não informei")];
+      if (ideia) linhas.push("Ideia: " + ideia);
+      linhas.push("Bora conversar para entender melhor e buscar a melhor opção?");
+      document.getElementById("quiz-enviar").href = ZAP + encodeURIComponent(linhas.join("\n"));
+    }
+
+    quiz.querySelectorAll(".quiz-opcoes").forEach((grupo) => grupo.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => {
+      grupo.querySelectorAll("button").forEach((o) => o.classList.remove("marcado")); b.classList.add("marcado");
+      resp[grupo.dataset.chave] = b.textContent.trim();
+      setTimeout(() => mostrar(atual + 1), 220);
+    })));
+    document.getElementById("quiz-ideia").addEventListener("input", montarLink);
+    document.getElementById("quiz-enviar").addEventListener("click", () => setTimeout(fechar, 300));
+    document.getElementById("quiz-fechar").addEventListener("click", fechar);
+    document.getElementById("quiz-pular").addEventListener("click", () => { window.open(ZAP + encodeURIComponent("Oi Zion, vi o site de vocês e quero saber mais"), "_blank"); fechar(); });
+    quiz.addEventListener("click", (e) => { if (e.target === quiz) fechar(); });
+    window.addEventListener("keydown", (e) => { if (e.key === "Escape" && quiz.classList.contains("aberto")) fechar(); });
+
+    document.querySelectorAll('a[href^="https://wa.me/"]').forEach((a) => {
+      if (a.closest(".linhas")) return;
+      a.addEventListener("click", (e) => { e.preventDefault(); abrir(); });
+    });
+  })();
+
+  const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .12 });
+  document.querySelectorAll(".rev").forEach((el) => io.observe(el));
+  const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Fundo reagindo ao toque/mouse: o brilho prata segue com inércia e a malha de pontos é empurrada
+  (() => {
+    if (semMovimento) return;
+    const mancha = document.getElementById("toque"), base = document.querySelector(".fundo i");
+    let ax = innerWidth / 2, ay = innerHeight / 2, tx = ax, ty = ay, ativo = false, apagar = null;
+    const mover = (x, y) => { tx = x; ty = y; if (!ativo) { ativo = true; mancha.style.opacity = "1"; } clearTimeout(apagar); apagar = setTimeout(() => { ativo = false; mancha.style.opacity = "0"; }, 1400); };
+    window.addEventListener("pointermove", (e) => mover(e.clientX, e.clientY), { passive: true });
+    window.addEventListener("touchmove", (e) => { const t = e.touches[0]; if (t) mover(t.clientX, t.clientY); }, { passive: true });
+    window.addEventListener("touchstart", (e) => { const t = e.touches[0]; if (t) mover(t.clientX, t.clientY); }, { passive: true });
+    mancha.style.transition = "opacity .5s";
+    (function passo() {
+      ax += (tx - ax) * .08; ay += (ty - ay) * .08;
+      mancha.style.transform = "translate(" + ax.toFixed(1) + "px," + ay.toFixed(1) + "px)";
+      const dx = (ax / innerWidth - .5) * -30, dy = (ay / innerHeight - .5) * -22;
+      base.style.transform = "translate(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px)";
+      requestAnimationFrame(passo);
+    })();
+  })();
+  const comMouse = matchMedia("(pointer: fine)").matches;
+
+  // serviços abrindo com movimento (um por vez)
+  const ds = document.querySelectorAll(".linhas details");
+  ds.forEach((d) => {
+    const corpo = d.querySelector(".corpo");
+    d.querySelector("summary").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (d.open) { fechar(d, corpo); return; }
+      ds.forEach((o) => { if (o !== d && o.open) fechar(o, o.querySelector(".corpo")); });
+      d.open = true;
+      if (semMovimento) return;
+      const alt = corpo.scrollHeight;
+      corpo.animate([{ height: "0px", opacity: 0 }, { height: alt + "px", opacity: 1 }], { duration: 520, easing: "cubic-bezier(.22,1,.36,1)" });
+    });
+  });
+  function fechar(d, corpo) {
+    if (semMovimento) { d.open = false; return; }
+    const a = corpo.animate([{ height: corpo.scrollHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 380, easing: "cubic-bezier(.22,1,.36,1)" });
+    a.onfinish = () => { d.open = false; };
+  }
+
+  // barra de progresso da leitura + cabeçalho que encolhe + sublinhado do menu + paralaxe do logo
+  const progresso = document.getElementById("progresso"), traco = document.getElementById("traco");
+  const links = [...document.querySelectorAll(".nav a:not(.insta)")];
+  const secoes = links.map((a) => document.querySelector(a.getAttribute("href")));
+  function aoRolar() {
+    const y = window.scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    progresso.style.width = (max > 0 ? (y / max) * 100 : 0) + "%";
+    document.body.classList.toggle("rolou", y > 40);
+    let ativo = -1;
+    secoes.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * 0.45) ativo = i; });
+    if (ativo >= 0) { const a = links[ativo]; traco.style.left = a.offsetLeft + "px"; traco.style.width = a.offsetWidth + "px"; }
+    else traco.style.width = "0";
+    const img = document.querySelector(".retrato img");
+    if (img && !semMovimento) { const r = img.parentElement.getBoundingClientRect(); const d = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; img.style.transform = "translateY(" + (d * -28).toFixed(1) + "px) scale(1.12)"; }
+  }
+  window.addEventListener("scroll", aoRolar, { passive: true }); window.addEventListener("resize", aoRolar); aoRolar();
+
+  if (comMouse && !semMovimento) {
+    // cursor personalizado
+    const cursor = document.getElementById("cursor");
+    let cx = innerWidth / 2, cy = innerHeight / 2, mx = cx, my = cy;
+    document.body.classList.add("com-mouse");
+    window.addEventListener("pointermove", (e) => { mx = e.clientX; my = e.clientY; }, { passive: true });
+    (function seguir() { cx += (mx - cx) * .22; cy += (my - cy) * .22; cursor.style.left = cx + "px"; cursor.style.top = cy + "px"; requestAnimationFrame(seguir); })();
+    document.querySelectorAll("a, button, summary").forEach((el) => {
+      el.addEventListener("pointerenter", () => document.body.classList.add("cursor-grande"));
+      el.addEventListener("pointerleave", () => document.body.classList.remove("cursor-grande"));
+    });
+
+    // grade do painel acompanhando o mouse
+    const hero = document.querySelector(".hero");
+    hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); hero.style.setProperty("--gx", ((e.clientX - r.left) / r.width * 100).toFixed(1) + "%"); hero.style.setProperty("--gy", ((e.clientY - r.top) / r.height * 100).toFixed(1) + "%"); }, { passive: true });
+
+    // botões magnéticos
+    document.querySelectorAll(".magnetico").forEach((b) => {
+      b.addEventListener("pointermove", (e) => { const r = b.getBoundingClientRect(); const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2); b.style.transform = "translate(" + (dx * .22).toFixed(1) + "px," + (dy * .3).toFixed(1) + "px)"; });
+      b.addEventListener("pointerleave", () => { b.style.transition = "transform .5s cubic-bezier(.34,1.56,.64,1)"; b.style.transform = ""; setTimeout(() => (b.style.transition = ""), 500); });
+    });
+  }
+</script>
+</body>
+</html>
