@@ -119,6 +119,26 @@
     .cartao:hover::before { opacity: 1; }
     .cartao .ic { width: 46px; height: 46px; border-radius: 13px; display: grid; place-items: center; background: linear-gradient(180deg, #fff, #9c9c9c); color: #050505; margin-bottom: 22px; box-shadow: inset 0 1px 0 #fff, 0 8px 24px rgba(255,255,255,.08); }
     .cartao .ic svg { width: 22px; height: 22px; }
+    .cartao .ic { position: relative; overflow: hidden; transition: transform .6s cubic-bezier(.34,1.56,.64,1), box-shadow .4s; }
+    .cartao .ic::after { content: ""; position: absolute; inset: -40%; background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.95) 50%, transparent 60%); transform: translateX(-120%); }
+    .cartao .ic svg { position: relative; z-index: 1; transition: transform .6s cubic-bezier(.34,1.56,.64,1); }
+    .cartao .ic svg path, .cartao .ic svg rect { stroke-dasharray: 1; stroke-dashoffset: 0; }
+    /* passando o mouse: o ícone sobe e gira, o brilho passa e o desenho se refaz */
+    .cartao:hover .ic, .cartao.vivo .ic.toca { transform: translateY(-4px) rotate(-8deg) scale(1.08); box-shadow: inset 0 1px 0 #fff, 0 14px 34px rgba(255,255,255,.22); }
+    .cartao:hover .ic::after, .cartao.vivo .ic.toca::after { animation: brilho-ic .9s ease; }
+    .cartao:hover .ic svg path, .cartao:hover .ic svg rect, .cartao.vivo .ic.toca svg path, .cartao.vivo .ic.toca svg rect { animation: traco-ic 1s cubic-bezier(.65,0,.35,1); }
+    @keyframes brilho-ic { to { transform: translateX(120%); } }
+    @keyframes traco-ic { from { stroke-dashoffset: 1; } }
+    /* cada serviço com o seu jeito */
+    .cartao:hover .ic-mkt svg path + path { animation: traco-ic 1s cubic-bezier(.65,0,.35,1), som-ic 1s .9s ease-in-out infinite; }
+    @keyframes som-ic { 50% { opacity: .25; } }
+    .cartao:hover .ic-marca svg { transform: rotate(72deg) scale(1.05); }
+    .cartao:hover .ic-auto svg { animation: gira-ic 3s linear infinite; }
+    @keyframes gira-ic { to { transform: rotate(360deg); } }
+    .cartao:hover .ic-site svg path { animation: traco-ic 1s cubic-bezier(.65,0,.35,1), cursor-ic 1s 1s steps(1) infinite; }
+    @keyframes cursor-ic { 50% { opacity: .35; } }
+    @media (prefers-reduced-motion: reduce) { .cartao .ic, .cartao .ic svg { transition: none; } .cartao .ic::after, .cartao .ic svg, .cartao .ic svg path, .cartao .ic svg rect { animation: none !important; } }
+
     .cartao h3 { font-size: 23px; font-weight: 800; margin-bottom: 10px; }
     .cartao p { color: var(--cinza); font-size: 14.5px; max-width: 46ch; }
     .cartao ul { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 22px; }
@@ -355,28 +375,28 @@
       </div>
       <div class="cartoes">
         <article class="cartao rev" style="--i:1">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 9h18M8 21h8"/></svg></div>
+          <div class="ic ic-site"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect pathLength="1" x="3" y="4" width="18" height="14" rx="2"/><path pathLength="1" d="M3 9h18M8 21h8"/></svg></div>
           <h3>Sites</h3>
           <p>Páginas rápidas, feitas para celular, que aparecem no Google e levam o cliente direto ao seu WhatsApp. No seu domínio, com sua cara.</p>
           <ul><li>Página de vendas</li><li>Site institucional</li><li>Cardápio digital</li><li>Agendamento</li></ul>
           <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta%20de%20site">Quero um site</a>
         </article>
         <article class="cartao rev" style="--i:2">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/></svg></div>
+          <div class="ic ic-mkt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path pathLength="1" d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/></svg></div>
           <h3>Marketing e tráfego pago</h3>
           <p>Instagram com cara de marca de verdade e anúncios no Instagram e no Google que trazem cliente. Planejamento, artes, legendas, vídeos e relatório do que funcionou.</p>
           <ul><li>Gestão de Instagram</li><li>Artes e reels</li><li>Tráfego pago</li></ul>
           <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta%20de%20marketing">Quero marketing</a>
         </article>
         <article class="cartao rev" style="--i:3">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.5 8z"/></svg></div>
+          <div class="ic ic-marca"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M12 3l2.5 5 5.5.8-4 3.9.9 5.5L12 15.6 7.1 18.2l.9-5.5-4-3.9L9.5 8z"/></svg></div>
           <h3>Identidade visual</h3>
           <p>Logo, cores, tipografia e todo o material que vai junto: cartão, uniforme, fachada, redes. Uma marca que o cliente reconhece de longe.</p>
           <ul><li>Logo</li><li>Paleta e fontes</li><li>Papelaria</li><li>Manual da marca</li></ul>
           <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta%20de%20identidade%20visual">Quero uma marca</a>
         </article>
         <article class="cartao rev" style="--i:4">
-          <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
+          <div class="ic ic-auto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path pathLength="1" d="M12 2v4M12 18v4M4.9 4.9l2.8 2.8M16.3 16.3l2.8 2.8M2 12h4M18 12h4M4.9 19.1l2.8-2.8M16.3 7.7l2.8-2.8"/></svg></div>
           <h3>Automação</h3>
           <p>WhatsApp que responde sozinho, planilhas que se preenchem, relatórios que chegam prontos e sistemas feitos do jeito que você trabalha.</p>
           <ul><li>WhatsApp automático</li><li>Planilhas e relatórios</li><li>Sistema sob medida</li></ul>
@@ -591,6 +611,16 @@
       if (!semMovimento) { const r = d.querySelector(".resp"); r.animate([{ height: "0px", opacity: 0 }, { height: r.scrollHeight + "px", opacity: 1 }], { duration: 420, easing: "cubic-bezier(.22,1,.36,1)" }); }
     }));
   })();
+
+  // ---------- Ícones dos serviços: no celular animam uma vez quando o cartão aparece ----------
+  if (!matchMedia("(hover: hover)").matches && !semMovimento) {
+    const ioIc = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return; ioIc.unobserve(e.target);
+      const ic = e.target.querySelector(".ic"); if (!ic) return;
+      setTimeout(() => { ic.classList.add("toca"); setTimeout(() => ic.classList.remove("toca"), 1400); }, 350);
+    }), { threshold: .6 });
+    document.querySelectorAll(".cartao").forEach((c) => ioIc.observe(c));
+  }
 
   // ---------- Revelação ao rolar ----------
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .1 });
