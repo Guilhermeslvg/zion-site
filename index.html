@@ -4,8 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="img/zion-marca.svg" type="image/svg+xml" />
-  <title>Zion — Agência digital: sites, marketing, identidade visual e automação</title>
-  <meta name="description" content="Agência Zion, em Timóteo, MG. Sites, gestão de Instagram, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
+  <title>Zion · Agência digital em Timóteo: sites, tráfego pago, identidade visual e automação</title>
+  <meta name="description" content="Agência Zion, em Timóteo, MG. Sites, tráfego pago, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
+  <meta name="theme-color" content="#050505" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="pt_BR" />
+  <meta property="og:site_name" content="Zion" />
+  <meta property="og:url" content="https://guilhermeslvg.github.io/zion-site/" />
+  <meta property="og:title" content="Zion · Levamos a sua marca ao topo." />
+  <meta property="og:description" content="Agência Zion, em Timóteo, MG. Sites, tráfego pago, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
+  <meta property="og:image" content="https://guilhermeslvg.github.io/zion-site/img/compartilhar.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@700&family=Unbounded:wght@800&display=swap" rel="stylesheet" />
@@ -191,6 +202,23 @@
       .roda-info .seta.esq { justify-self: end; }
     }
     @media (prefers-reduced-motion: reduce) { .roda-centro svg { animation: none; } }
+    /* dúvidas: sanfona de vidro escuro, uma aberta por vez */
+    .perguntas { display: grid; gap: 10px; }
+    .perguntas details { border-radius: 18px; background: var(--vidro); border: 1px solid var(--vidro-borda); transition: border-color .3s; }
+    .perguntas details[open] { border-color: rgba(255,255,255,.3); }
+    .perguntas summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px 22px; font-size: 16.5px; font-weight: 700; }
+    .perguntas summary::-webkit-details-marker { display: none; }
+    .perguntas summary:focus-visible { outline: 2px solid #fff; outline-offset: 3px; border-radius: 18px; }
+    .perguntas summary i { flex: none; position: relative; width: 34px; height: 34px; border-radius: 50%; border: 1px solid var(--vidro-borda); transition: background .3s, transform .5s cubic-bezier(.34,1.56,.64,1); }
+    .perguntas summary i::before, .perguntas summary i::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.6px; margin: -.8px 0 0 -6px; border-radius: 1px; background: #fff; transition: background .3s; }
+    .perguntas summary i::after { transform: rotate(90deg); }
+    .perguntas details[open] summary i { background: linear-gradient(180deg, #fff, #bdbdbd); transform: rotate(135deg); }
+    .perguntas details[open] summary i::before, .perguntas details[open] summary i::after { background: #050505; }
+    .perguntas .resp { overflow: hidden; }
+    .perguntas .resp p { padding: 0 64px 20px 22px; color: var(--cinza); font-size: 15px; max-width: 70ch; }
+    @media (max-width: 640px) { .perguntas summary { padding: 18px; font-size: 15.5px; } .perguntas .resp p { padding: 0 18px 18px; } }
+    @media (prefers-reduced-motion: reduce) { .perguntas summary i { transition: none; } }
+
     .modelos-pe { text-align: center; color: #d4d4d4; text-shadow: 0 1px 10px rgba(0,0,0,.9); font-size: 14.5px; max-width: 52ch; margin: 26px auto 0; }
     .modelos-pe a { color: var(--texto); font-weight: 700; }
 
@@ -296,7 +324,7 @@
   <header class="topo">
     <div class="miolo">
       <a class="marca" href="#" aria-label="Zion, voltar ao início"><svg class="montanha" viewBox="0 0 100 64" aria-hidden="true"><defs><linearGradient id="prata-topo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".38" stop-color="#d9d9d9"/><stop offset=".62" stop-color="#8f8f8f"/><stop offset="1" stop-color="#e9e9e9"/></linearGradient></defs><path fill="url(#prata-topo)" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg><b>Zion</b></a>
-      <nav class="nav"><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a><i class="traco" id="traco"></i></nav>
+      <nav class="nav"><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a><a href="#duvidas">Dúvidas</a><a href="#contato">Contato</a><i class="traco" id="traco"></i></nav>
       <a class="btn solido" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta">Pedir proposta</a>
     </div>
   </header>
@@ -306,7 +334,7 @@
     <div class="painel"><div class="foto"></div><div class="luz"></div>
       <div>
         <div class="rotulo">Agência digital • Timóteo, MG</div>
-        <h1><span class="l"><span>Marcas que</span></span><span class="l"><span class="cinza">crescem</span></span><span class="l"><span>começam aqui.</span></span></h1>
+        <h1><span class="l"><span>Levamos a sua</span></span><span class="l"><span class="cinza">marca</span></span><span class="l"><span>ao topo.</span></span></h1>
       </div>
       <div class="apoio">
         <p>A Zion cria o <b>site</b>, cuida do <b>marketing</b>, desenha a <b>identidade</b> e automatiza o que toma seu tempo. Uma equipe só, do primeiro rascunho ao lançamento.</p>
@@ -370,7 +398,7 @@
     <div class="roda-area">
       <div class="roda-centro" aria-hidden="true">
         <svg viewBox="0 0 200 200"><defs><path id="circulo-zion" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs><text><textPath href="#circulo-zion">Zion · sites no ar · Timóteo MG · Zion · sites no ar · Timóteo MG ·</textPath></text></svg>
-        <span class="disco"></span><span class="marca-c"><svg viewBox="0 0 100 64" aria-hidden="true"><defs><linearGradient id="prata-roda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".38" stop-color="#d9d9d9"/><stop offset=".62" stop-color="#8f8f8f"/><stop offset="1" stop-color="#e9e9e9"/></linearGradient></defs><path fill="url(#prata-roda)" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg><b>Zion</b><small>04 projetos no ar</small></span>
+        <span class="disco"></span><span class="marca-c"><svg viewBox="0 0 100 64" aria-hidden="true"><defs><linearGradient id="prata-roda" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".38" stop-color="#d9d9d9"/><stop offset=".62" stop-color="#8f8f8f"/><stop offset="1" stop-color="#e9e9e9"/></linearGradient></defs><path fill="url(#prata-roda)" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg><b>Zion</b><small id="roda-conta">projetos no ar</small></span>
       </div>
     <div class="roda-palco" id="roda-palco">
       <div class="roda" id="roda">
@@ -413,6 +441,23 @@
           <div class="valor"><b>Velocidade</b><span>Entregas em dias, com você aprovando cada passo.</span></div>
           <div class="valor"><b>Seu de verdade</b><span>Domínio, arquivos e acessos ficam com você.</span></div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DÚVIDAS -->
+  <section id="duvidas">
+    <div class="miolo">
+      <div class="cabeca rev">
+        <div><div class="rotulo">Dúvidas</div><h2>O que todo mundo pergunta <em>antes de começar.</em></h2></div>
+        <p>Ficou alguma? <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20tenho%20uma%20d%C3%BAvida" style="color: var(--texto); font-weight: 700;">Pergunta pra gente no WhatsApp.</a></p>
+      </div>
+      <div class="perguntas rev" id="perguntas">
+          <details><summary>Quanto tempo leva?<i aria-hidden="true"></i></summary><div class="resp"><p>Depende do tamanho do projeto. Os mais simples ficam prontos em poucos dias, e o prazo certo já vem escrito na proposta.</p></div></details>
+          <details><summary>Como funciona o pagamento?<i aria-hidden="true"></i></summary><div class="resp"><p>O preço e a forma de pagamento vêm escritos na proposta, antes de começar. Nada de valor que muda no meio do caminho.</p></div></details>
+          <details><summary>O domínio e os acessos ficam com quem?<i aria-hidden="true"></i></summary><div class="resp"><p>Com você. O domínio fica no seu nome e todos os arquivos e acessos são entregues para você.</p></div></details>
+          <details><summary>Vocês fazem tráfego pago?<i aria-hidden="true"></i></summary><div class="resp"><p>Fazemos. Anúncios no Instagram e no Google, com relatório mostrando o que trouxe cliente.</p></div></details>
+          <details><summary>Dá para mudar alguma coisa depois?<i aria-hidden="true"></i></summary><div class="resp"><p>Dá. Ajuste de texto, foto ou preço depois de pronto é só chamar a gente no WhatsApp.</p></div></details>
       </div>
     </div>
   </section>
@@ -493,6 +538,8 @@
     const cs = [...roda.querySelectorAll(".roda-carta")], N = cs.length, PASSO = 360 / N, unicos = N / 3;
     const texto = document.getElementById("roda-texto");
     cs.forEach((c, i) => c.style.setProperty("--a", (i * PASSO) + "deg"));
+    const conta = document.getElementById("roda-conta");
+    if (conta) conta.textContent = String(unicos).padStart(2, "0") + (unicos === 1 ? " projeto no ar" : " projetos no ar");
     let giro = 0, alvo = null, parado = false, ativo = -1, descanso = 0, ultimo = performance.now();
     const norm = (g) => ((g % 360) + 540) % 360 - 180;
     function atualizar() {
@@ -528,6 +575,23 @@
     requestAnimationFrame(quadro);
   })();
 
+  // ---------- Dúvidas: abre uma por vez, com movimento ----------
+  (() => {
+    const ds = [...document.querySelectorAll("#perguntas details")];
+    const fechar = (d) => {
+      const r = d.querySelector(".resp");
+      if (semMovimento) { d.open = false; return; }
+      r.animate([{ height: r.scrollHeight + "px", opacity: 1 }, { height: "0px", opacity: 0 }], { duration: 320, easing: "cubic-bezier(.22,1,.36,1)" }).onfinish = () => { d.open = false; };
+    };
+    ds.forEach((d) => d.querySelector("summary").addEventListener("click", (e) => {
+      e.preventDefault();
+      if (d.open) { fechar(d); return; }
+      ds.forEach((o) => { if (o !== d && o.open) fechar(o); });
+      d.open = true;
+      if (!semMovimento) { const r = d.querySelector(".resp"); r.animate([{ height: "0px", opacity: 0 }, { height: r.scrollHeight + "px", opacity: 1 }], { duration: 420, easing: "cubic-bezier(.22,1,.36,1)" }); }
+    }));
+  })();
+
   // ---------- Revelação ao rolar ----------
   const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("vivo"); io.unobserve(e.target); } }), { threshold: .1 });
   document.querySelectorAll(".rev").forEach((el) => io.observe(el));
@@ -559,16 +623,22 @@
     const fechar = () => { quiz.classList.remove("aberto"); quiz.setAttribute("aria-hidden", "true"); document.body.style.overflow = ""; };
     function montarLink() {
       const ideia = document.getElementById("quiz-ideia").value.trim();
-      const linhas = ["Oi Zion! Vi o site de vocês.", "Preciso de: " + (resp.precisa || "ainda não sei"), "Para: " + (resp.para || "não informei"), "Prazo: " + (resp.prazo || "não informei")];
-      if (ideia) linhas.push("Ideia: " + ideia);
-      linhas.push("Podem me mandar uma proposta?");
-      document.getElementById("quiz-enviar").href = ZAP + encodeURIComponent(linhas.join("\n"));
+      // monta a mensagem em frases, como a pessoa escreveria
+      const oQue = { "Site": "um site", "Marketing / Instagram": "ajuda com marketing e Instagram", "Identidade visual": "uma identidade visual (logo e marca)", "Automação": "uma automação para o meu negócio" }[resp.precisa];
+      const praQuem = { "Minha empresa": "para a minha empresa", "Um negócio que estou começando": "para um negócio que estou começando", "Projeto pessoal": "para um projeto pessoal" }[resp.para] || "";
+      const quando = { "Para ontem": "Tenho pressa: queria começar o quanto antes.", "Nas próximas semanas": "A ideia é começar nas próximas semanas.", "Sem pressa, quero conhecer": "Estou sem pressa, por enquanto quero conhecer o trabalho de vocês." }[resp.prazo];
+      let pedido = oQue ? "Estou procurando *" + oQue + "*" + (praQuem ? " " + praQuem : "") + "." : "Ainda não sei bem do que preciso" + (praQuem ? " " + praQuem : "") + " e queria uma orientação de vocês.";
+      if (quando) pedido += "\n" + quando;
+      const blocos = ["Olá, Zion! Vim pelo site de vocês.", pedido];
+      if (ideia.length >= 3) { const t = ideia.charAt(0).toUpperCase() + ideia.slice(1); blocos.push("*Minha ideia:* " + t + (/[.!?]$/.test(t) ? "" : ".")); }
+      blocos.push("Podem me mandar uma proposta?");
+      document.getElementById("quiz-enviar").href = ZAP + encodeURIComponent(blocos.join("\n\n"));
     }
     quiz.querySelectorAll(".quiz-opcoes").forEach((g) => g.querySelectorAll("button").forEach((b) => b.addEventListener("click", () => { g.querySelectorAll("button").forEach((o) => o.classList.remove("marcado")); b.classList.add("marcado"); resp[g.dataset.chave] = b.textContent.trim(); setTimeout(() => mostrar(atual + 1), 220); })));
     document.getElementById("quiz-ideia").addEventListener("input", montarLink);
     document.getElementById("quiz-enviar").addEventListener("click", () => setTimeout(fechar, 300));
     document.getElementById("quiz-fechar").addEventListener("click", fechar);
-    document.getElementById("quiz-pular").addEventListener("click", () => { open(ZAP + encodeURIComponent("Oi Zion, vi o site de vocês e quero uma proposta"), "_blank"); fechar(); });
+    document.getElementById("quiz-pular").addEventListener("click", () => { open(ZAP + encodeURIComponent("Olá, Zion! Vim pelo site de vocês e gostaria de uma proposta."), "_blank"); fechar(); });
     quiz.addEventListener("click", (e) => { if (e.target === quiz) fechar(); });
     addEventListener("keydown", (e) => { if (e.key === "Escape" && quiz.classList.contains("aberto")) fechar(); });
     // todo link de WhatsApp abre o questionário, menos os dos cartões de serviço e o dos modelos (esses já dizem o que a pessoa quer)
