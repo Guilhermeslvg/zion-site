@@ -8,7 +8,7 @@
   <meta name="description" content="Agência Zion, em Timóteo, MG. Sites, gestão de Instagram, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@700;900&display=swap" rel="stylesheet" />
   <style>
     /* =========================================================
        TEXTOS: troque direto no HTML lá embaixo, seção por seção.
@@ -116,31 +116,67 @@
     .cartao a::after { content: "→"; transition: transform .3s; }
     .cartao a:hover::after { transform: translateX(4px); }
 
-    /* modelos: carrossel flutuante (cartões em leque, o do meio na frente) */
-    #projetos { overflow: hidden; }
-    .palco { position: relative; height: 520px; perspective: 1400px; user-select: none; touch-action: pan-y; }
-    .cartas { position: absolute; inset: 0; transform-style: preserve-3d; }
-    .carta { position: absolute; left: 50%; top: 50%; width: 250px; height: 400px; margin: -200px 0 0 -125px; border-radius: 26px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,.16); background: #0b0b0b; box-shadow: 0 40px 90px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.14); transition: transform .8s cubic-bezier(.22,1,.36,1), opacity .8s, filter .8s, width .8s cubic-bezier(.22,1,.36,1), height .8s cubic-bezier(.22,1,.36,1), margin .8s cubic-bezier(.22,1,.36,1); will-change: transform; }
-    .carta.ativa { width: 290px; height: 460px; margin: -230px 0 0 -145px; cursor: default; }
-    .carta .fundo-carta { position: absolute; inset: 0; background: radial-gradient(90% 60% at 20% 0%, rgba(255,255,255,.22), transparent 60%), linear-gradient(160deg, #262626 0%, #0d0d0d 55%, #050505 100%); }
-    .carta .fundo-carta::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 40% at 80% 100%, rgba(255,255,255,.08), transparent 70%); }
-    .carta .n { position: absolute; top: 16px; right: 18px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; color: var(--cinza); }
-    /* cada cartão mostra o site de verdade rodando no celular */
-    .carta video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; }
-    .carta .n { z-index: 2; padding: 4px 9px; border-radius: 999px; background: rgba(5,5,5,.6); }
-    .carta .legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 90px 22px 22px; background: linear-gradient(180deg, rgba(5,5,5,0), rgba(5,5,5,.9) 35%, #050505 62%); }
-    .carta .legenda small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); margin-bottom: 4px; }
-    .carta .legenda b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
-    .carta.ativa .legenda b { font-size: 28px; }
-    .carta .legenda span { display: block; font-size: 13px; color: var(--cinza); margin-top: 6px; }
-    .carta:not(.ativa) .legenda span, .carta:not(.ativa) .legenda a { display: none; }
-    .carta .legenda a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 9px 15px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #050505; background: linear-gradient(180deg, #fff, #bdbdbd); text-decoration: none; }
-    .carta .legenda a::after { content: "↗"; }
-    .carta .legenda a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
-    .palco .seta { position: absolute; top: 50%; z-index: 30; width: 46px; height: 46px; margin-top: -23px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: rgba(9,9,9,.9); color: #fff; font-size: 18px; cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s, transform .2s; }
-    .palco .seta:hover { background: #fff; color: #050505; transform: scale(1.06); }
-    .palco .seta.esq { left: 0; } .palco .seta.dir { right: 0; }
-    .palco .contador { position: absolute; left: 50%; bottom: 0; transform: translateX(-50%); font-size: 12px; font-weight: 700; letter-spacing: .14em; color: var(--cinza); padding: 8px 14px; border-radius: 999px; border: 1px solid var(--vidro-borda); background: rgba(9,9,9,.9); }
+    /* projetos: "ZION" gigante ondulando sobre a faixa prateada e a roda de cartões girando embaixo */
+    #projetos { overflow: hidden; padding-bottom: 40px; }
+    .zion-topo { position: relative; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; }
+    .zion-topo .canto { font-size: 11px; font-weight: 800; letter-spacing: .22em; line-height: 1.4; text-transform: uppercase; color: var(--texto); }
+    .zion-topo .canto.dir { text-align: right; color: var(--cinza); }
+    .zion-titulo { position: relative; grid-column: 1 / -1; margin: 6px 0 0; height: clamp(110px, 21vw, 290px); }
+    .zion-faixa { position: absolute; left: 50%; top: -8%; bottom: -8%; width: clamp(64px, 11vw, 150px); transform: translateX(-50%); background: linear-gradient(180deg, #fff 0%, #cfcfcf 40%, #7c7c7c 52%, #cfcfcf 64%, #fff 100%); box-shadow: 0 30px 60px rgba(0,0,0,.5); }
+    .zion-palavra { position: absolute; inset: 0; display: flex; justify-content: center; align-items: center; font-family: "Outfit", "Manrope", sans-serif; font-weight: 900; font-size: clamp(110px, 24vw, 330px); line-height: .8; letter-spacing: -.02em; pointer-events: none; }
+    .zion-palavra span { display: inline-block; color: #fff; animation: onda 3.2s cubic-bezier(.45,0,.55,1) infinite; animation-delay: calc(var(--i) * -.28s); transform-origin: 50% 100%; }
+    .zion-palavra span { text-shadow: 0 10px 40px rgba(0,0,0,.35); }
+    /* em cima da faixa as letras ficam escuras: mesma palavra recortada na largura da faixa */
+    .zion-palavra.na-faixa { clip-path: inset(-10% calc(50% - clamp(64px, 11vw, 150px) / 2)); }
+    .zion-palavra.na-faixa span { color: #0a0a0a; text-shadow: none; }
+    .zion-palavra.na-faixa.contorno span { color: transparent; -webkit-text-stroke-color: #0a0a0a; }
+    .zion-palavra.contorno span { color: transparent; -webkit-text-stroke: 1.5px #fff; animation-name: onda-contorno; }
+    @keyframes onda { 0%, 100% { transform: translateY(-6%) scaleY(1); } 50% { transform: translateY(6%) scaleY(.72); } }
+    @keyframes onda-contorno { 0%, 100% { transform: translateY(14%) scaleY(.7); } 50% { transform: translateY(-10%) scaleY(1.05); } }
+    .zion-pe { display: flex; justify-content: space-between; margin-top: 18px; font-size: 11px; font-weight: 800; letter-spacing: .2em; text-transform: uppercase; color: var(--texto); text-shadow: 0 1px 10px rgba(0,0,0,.8); }
+
+    .roda-palco { --r: 430px; --cw: 168px; --ch: 224px; --cy: 620px; position: relative; height: 560px; margin-top: 30px; overflow: hidden; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: grab;
+      -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+    .roda-palco.arrastando { cursor: grabbing; }
+    .roda { position: absolute; left: 50%; top: var(--cy); width: 0; height: 0; }
+    .roda-carta { position: absolute; left: calc(var(--cw) / -2); top: calc(var(--ch) / -2); width: var(--cw); height: var(--ch); border-radius: 18px; overflow: hidden; background: #111; border: 1px solid rgba(255,255,255,.18); box-shadow: 0 24px 50px rgba(0,0,0,.6);
+      transform: rotate(var(--a)) translateY(calc(var(--r) * -1)); transition: box-shadow .4s, border-color .4s; text-decoration: none; color: #fff; }
+    .roda-carta img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; transition: transform .6s cubic-bezier(.22,1,.36,1), filter .4s; filter: grayscale(.35) brightness(.85); }
+    .roda-carta .nome { position: absolute; left: 0; right: 0; bottom: 0; padding: 30px 12px 10px; font-size: 12px; font-weight: 800; letter-spacing: .04em; background: linear-gradient(180deg, transparent, rgba(5,5,5,.9)); }
+    .roda-carta.ativa { border-color: rgba(255,255,255,.7); box-shadow: 0 30px 70px rgba(0,0,0,.7), 0 0 0 1px rgba(255,255,255,.4); }
+    .roda-carta.ativa img { filter: none; transform: scale(1.04); }
+    .roda-carta:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
+    .roda-centro { position: absolute; left: 50%; top: var(--cy); width: calc(var(--r) * 1.1); height: calc(var(--r) * 1.1); transform: translate(-50%, -50%); border-radius: 50%; border: 1px solid rgba(255,255,255,.12); background: radial-gradient(circle, rgba(255,255,255,.05), rgba(5,5,5,0) 70%); pointer-events: none; }
+    .roda-centro svg { position: absolute; inset: 6%; width: 88%; height: 88%; animation: gira 40s linear infinite; }
+    .roda-centro text { font: 700 10px "Manrope", sans-serif; letter-spacing: .5em; fill: rgba(255,255,255,.45); text-transform: uppercase; }
+    .roda-centro .marca-c { position: absolute; left: 50%; top: 12%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; letter-spacing: .3em; color: var(--texto); }
+    .roda-centro .marca-c svg { position: static; width: 34px; height: auto; animation: none; }
+    @keyframes gira { to { transform: rotate(360deg); } }
+
+    .roda-info { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 24px; margin-top: 10px; }
+    .roda-info .seta { width: 46px; height: 46px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: rgba(9,9,9,.9); color: #fff; font-size: 18px; cursor: pointer; transition: background .2s, color .2s; }
+    .roda-info .seta:hover { background: #fff; color: #050505; }
+    .roda-info .seta:focus-visible { outline: 2px solid #fff; outline-offset: 2px; }
+    .roda-texto { text-align: center; min-height: 92px; }
+    .roda-texto small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); }
+    .roda-texto b { display: block; margin-top: 4px; font-size: 26px; font-weight: 800; letter-spacing: -.02em; }
+    .roda-texto p { margin: 6px auto 0; max-width: 46ch; font-size: 14px; color: var(--cinza); }
+    .roda-texto a { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #050505; background: linear-gradient(180deg, #fff, #bdbdbd); text-decoration: none; }
+    .roda-texto a::after { content: "↗"; }
+    .roda-texto.troca { animation: troca .45s cubic-bezier(.22,1,.36,1); }
+    @keyframes troca { from { opacity: 0; transform: translateY(8px); } }
+    @media (max-width: 640px) {
+      .zion-topo .canto { font-size: 9.5px; letter-spacing: .16em; }
+      .zion-palavra.contorno span { -webkit-text-stroke-width: 1px; }
+      .zion-pe { font-size: 9.5px; letter-spacing: .14em; }
+      .roda-palco { --r: 250px; --cw: 104px; --ch: 140px; --cy: 380px; height: 360px; margin-top: 20px; }
+      .roda-carta { border-radius: 12px; } .roda-carta .nome { font-size: 10px; padding: 20px 8px 7px; }
+      .roda-centro .marca-c { font-size: 9px; } .roda-centro .marca-c svg { width: 26px; }
+      .roda-info { grid-template-columns: 1fr 1fr; gap: 14px; }
+      .roda-texto { grid-column: 1 / -1; grid-row: 1; }
+      .roda-info .seta.esq { justify-self: end; }
+    }
+    @media (prefers-reduced-motion: reduce) { .zion-palavra span, .roda-centro svg { animation: none; } }
     .modelos-pe { text-align: center; color: #d4d4d4; text-shadow: 0 1px 10px rgba(0,0,0,.9); font-size: 14.5px; max-width: 52ch; margin: 26px auto 0; }
     .modelos-pe a { color: var(--texto); font-weight: 700; }
 
@@ -231,11 +267,6 @@
       .hero .painel { padding: 40px 24px 34px; border-radius: 22px; }
       .cartoes, .valores { grid-template-columns: 1fr; }
       .cartao { padding: 26px 22px; }
-      .palco { height: 440px; }
-      .carta { width: 190px; height: 320px; margin: -160px 0 0 -95px; }
-      .carta.ativa { width: 230px; height: 380px; margin: -190px 0 0 -115px; }
-      .carta.ativa .legenda b { font-size: 22px; }
-      .palco .seta { width: 40px; height: 40px; margin-top: -20px; }
       .sobre .texto, .contato .texto { padding: 26px 22px; }
       .quiz-caixa { padding: 30px 22px 22px; }
       .quiz-passo h3 { font-size: 22px; }
@@ -313,23 +344,40 @@
     </div>
   </section>
 
-  <!-- PROJETOS: carrossel flutuante com os sites no ar. Para adicionar um, copie um <article class="carta">, troque o vídeo (img/projeto-NOME.mp4), os textos e o link. -->
+  <!-- PROJETOS: "ZION" ondulando e a roda de cartões. Para adicionar um projeto, coloque o print em img/projeto-NOME.jpg e copie um <a class="roda-carta"> (a roda se ajusta sozinha). -->
   <section id="projetos">
     <div class="miolo">
-      <div class="cabeca rev">
-        <div><div class="rotulo">Projetos</div><h2>Sites que já estão <em>no ar.</em></h2></div>
-        <p>Trabalhos que fizemos e que estão funcionando agora. Arraste ou use as setas.</p>
+      <div class="zion-topo rev">
+        <div class="canto">Bem-vindo<br />à agência</div><div></div><div class="canto dir">Sites<br />no ar</div>
+        <h2 class="zion-titulo" aria-label="Zion: projetos no ar"><i class="zion-faixa" aria-hidden="true"></i><span class="zion-palavra contorno" aria-hidden="true"><span style="--i:0">Z</span><span style="--i:1">I</span><span style="--i:2">O</span><span style="--i:3">N</span></span><span class="zion-palavra" aria-hidden="true"><span style="--i:0">Z</span><span style="--i:1">I</span><span style="--i:2">O</span><span style="--i:3">N</span></span><span class="zion-palavra contorno na-faixa" aria-hidden="true"><span style="--i:0">Z</span><span style="--i:1">I</span><span style="--i:2">O</span><span style="--i:3">N</span></span><span class="zion-palavra na-faixa" aria-hidden="true"><span style="--i:0">Z</span><span style="--i:1">I</span><span style="--i:2">O</span><span style="--i:3">N</span></span></h2>
       </div>
-      <div class="palco rev" id="palco">
-        <button class="seta esq" id="seta-esq" aria-label="Anterior">←</button>
-        <div class="cartas" id="cartas">
-          <article class="carta"><video src="img/projeto-foodcourt.mp4" poster="img/projeto-foodcourt.jpg" muted loop playsinline preload="metadata" aria-label="Food Court no celular: entregador sorrindo, “Seu pedido favorito, do seu jeito.” e as lojas parceiras"></video><span class="n"></span><div class="legenda"><small>Delivery</small><b>Food Court</b><span>Reúne os restaurantes da região num app de pedidos, com conta do cliente e entrega.</span><a href="https://foodcourt.nexobg.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
-          <article class="carta"><video src="img/projeto-nexo.mp4" poster="img/projeto-nexo.jpg" muted loop playsinline preload="metadata" aria-label="Nexo no celular: “Venda mais. Gerencie menos.” e o painel com pedidos e faturamento do dia"></video><span class="n"></span><div class="legenda"><small>Gestão de restaurantes</small><b>Nexo</b><span>Cardápio digital, pedidos pelo WhatsApp e gestão do restaurante num lugar só, sem comissão.</span><a href="https://nexobg.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
-          <article class="carta"><video src="img/projeto-maison.mp4" poster="img/projeto-maison.jpg" muted loop playsinline preload="metadata" aria-label="Maison Lourée no celular: frascos Rose Dorée e Lourée Noir sobre uma mesa escura"></video><span class="n"></span><div class="legenda"><small>Perfumaria · Timóteo</small><b>Maison Lourée</b><span>Loja dos perfumes da marca, com os frascos em 3D e compra direto no site.</span><a href="https://maisonlouree.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
-          <article class="carta"><video src="img/projeto-rosa.mp4" poster="img/projeto-rosa.jpg" muted loop playsinline preload="metadata" aria-label="Outubro Rosa da Clínica Dias no celular: título rosa e a cruz com a fita da campanha"></video><span class="n"></span><div class="legenda"><small>Campanha · Clínica Dias</small><b>Outubro Rosa</b><span>Divulga o pacote da campanha e leva a paciente direto para agendar no WhatsApp.</span><a href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener">Ver o site</a></div></article>
-        </div>
-        <button class="seta dir" id="seta-dir" aria-label="Próximo">→</button>
-        <div class="contador" id="contador">1 / 4</div>
+      <div class="zion-pe"><span>Timóteo, MG</span><span>Projetos</span></div>
+    </div>
+    <div class="roda-palco" id="roda-palco">
+      <div class="roda-centro" aria-hidden="true">
+        <svg viewBox="0 0 200 200"><defs><path id="circulo-zion" d="M100,100 m-88,0 a88,88 0 1,1 176,0 a88,88 0 1,1 -176,0" /></defs><text><textPath href="#circulo-zion">Zion · sites no ar · Zion · sites no ar · Zion · sites no ar ·</textPath></text></svg>
+        <span class="marca-c"><svg viewBox="0 0 100 64" aria-hidden="true"><path fill="#e9e9e9" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg>Zion</span>
+      </div>
+      <div class="roda" id="roda">
+          <a class="roda-carta" href="https://foodcourt.nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Delivery" data-desc="Reúne os restaurantes da região num app de pedidos, com conta do cliente e entrega."><img src="img/projeto-foodcourt.jpg" alt="Food Court no celular: entregador sorrindo e “Seu pedido favorito, do seu jeito.”" draggable="false" /><span class="nome">Food Court</span></a>
+          <a class="roda-carta" href="https://nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Gestão de restaurantes" data-desc="Cardápio digital, pedidos pelo WhatsApp e gestão do restaurante num lugar só, sem comissão."><img src="img/projeto-nexo.jpg" alt="Nexo no celular: “Venda mais. Gerencie menos.” e o painel do dia" draggable="false" /><span class="nome">Nexo</span></a>
+          <a class="roda-carta" href="https://maisonlouree.com.br/" target="_blank" rel="noopener" data-tipo="Perfumaria · Timóteo" data-desc="Loja dos perfumes da marca, com os frascos em 3D e compra direto no site."><img src="img/projeto-maison.jpg" alt="Maison Lourée no celular: frascos Rose Dorée e Lourée Noir sobre uma mesa escura" draggable="false" /><span class="nome">Maison Lourée</span></a>
+          <a class="roda-carta" href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener" data-tipo="Campanha · Clínica Dias" data-desc="Divulga o pacote da campanha e leva a paciente direto para agendar no WhatsApp."><img src="img/projeto-rosa.jpg" alt="Outubro Rosa da Clínica Dias no celular: título rosa e a cruz com a fita da campanha" draggable="false" /><span class="nome">Outubro Rosa</span></a>
+          <a class="roda-carta" href="https://foodcourt.nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Delivery" data-desc="Reúne os restaurantes da região num app de pedidos, com conta do cliente e entrega." aria-hidden="true" tabindex="-1"><img src="img/projeto-foodcourt.jpg" alt="" draggable="false" /><span class="nome">Food Court</span></a>
+          <a class="roda-carta" href="https://nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Gestão de restaurantes" data-desc="Cardápio digital, pedidos pelo WhatsApp e gestão do restaurante num lugar só, sem comissão." aria-hidden="true" tabindex="-1"><img src="img/projeto-nexo.jpg" alt="" draggable="false" /><span class="nome">Nexo</span></a>
+          <a class="roda-carta" href="https://maisonlouree.com.br/" target="_blank" rel="noopener" data-tipo="Perfumaria · Timóteo" data-desc="Loja dos perfumes da marca, com os frascos em 3D e compra direto no site." aria-hidden="true" tabindex="-1"><img src="img/projeto-maison.jpg" alt="" draggable="false" /><span class="nome">Maison Lourée</span></a>
+          <a class="roda-carta" href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener" data-tipo="Campanha · Clínica Dias" data-desc="Divulga o pacote da campanha e leva a paciente direto para agendar no WhatsApp." aria-hidden="true" tabindex="-1"><img src="img/projeto-rosa.jpg" alt="" draggable="false" /><span class="nome">Outubro Rosa</span></a>
+          <a class="roda-carta" href="https://foodcourt.nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Delivery" data-desc="Reúne os restaurantes da região num app de pedidos, com conta do cliente e entrega." aria-hidden="true" tabindex="-1"><img src="img/projeto-foodcourt.jpg" alt="" draggable="false" /><span class="nome">Food Court</span></a>
+          <a class="roda-carta" href="https://nexobg.com.br/" target="_blank" rel="noopener" data-tipo="Gestão de restaurantes" data-desc="Cardápio digital, pedidos pelo WhatsApp e gestão do restaurante num lugar só, sem comissão." aria-hidden="true" tabindex="-1"><img src="img/projeto-nexo.jpg" alt="" draggable="false" /><span class="nome">Nexo</span></a>
+          <a class="roda-carta" href="https://maisonlouree.com.br/" target="_blank" rel="noopener" data-tipo="Perfumaria · Timóteo" data-desc="Loja dos perfumes da marca, com os frascos em 3D e compra direto no site." aria-hidden="true" tabindex="-1"><img src="img/projeto-maison.jpg" alt="" draggable="false" /><span class="nome">Maison Lourée</span></a>
+          <a class="roda-carta" href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener" data-tipo="Campanha · Clínica Dias" data-desc="Divulga o pacote da campanha e leva a paciente direto para agendar no WhatsApp." aria-hidden="true" tabindex="-1"><img src="img/projeto-rosa.jpg" alt="" draggable="false" /><span class="nome">Outubro Rosa</span></a>
+      </div>
+    </div>
+    <div class="miolo">
+      <div class="roda-info">
+        <button type="button" class="seta esq" id="roda-ant" aria-label="Projeto anterior">←</button>
+        <div class="roda-texto" id="roda-texto" aria-live="polite"></div>
+        <button type="button" class="seta dir" id="roda-prox" aria-label="Próximo projeto">→</button>
       </div>
       <p class="modelos-pe rev">Quer um site assim para o seu negócio? <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20site%20para%20o%20meu%20neg%C3%B3cio">Fala com a gente.</a></p>
     </div>
@@ -422,43 +470,49 @@
   // ---------- Entrada da abertura (sem tela de carregamento) ----------
   requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add("pronto")));
 
-  // ---------- Modelos: carrossel flutuante em leque ----------
+  // ---------- Projetos: roda de cartões girando devagar; arrastar gira, setas levam ao próximo ----------
   (() => {
-    const palco = document.getElementById("palco"), cartas = [...document.querySelectorAll("#cartas .carta")], contador = document.getElementById("contador");
-    const N = cartas.length; let atual = 0, pausa = null, auto = null;
-    const celular = matchMedia("(max-width: 640px)").matches;
-    const PASSO = celular ? 120 : 200;       // distância horizontal entre os cartões
-    function pintar() {
-      cartas.forEach((c, i) => {
-        let d = i - atual; if (d > N / 2) d -= N; if (d < -N / 2) d += N;   // distância circular até o cartão da frente
-        const a = Math.abs(d), longe = a > 2;
-        c.classList.toggle("ativa", d === 0);
-        c.style.zIndex = 20 - a;
-        c.style.opacity = longe ? 0 : String(1 - a * .18);
-        c.style.filter = "brightness(" + (1 - a * .18).toFixed(2) + ")";
-        c.style.transform = "translateX(" + (d * PASSO) + "px) translateZ(" + (-a * 120) + "px) rotateY(" + (-d * 6) + "deg) translateY(" + (a * 10) + "px)";
-        c.style.pointerEvents = longe ? "none" : "auto";
-        c.querySelector(".n").textContent = (i + 1) + " / " + N;
-      });
-      contador.textContent = (atual + 1) + " / " + N;
+    const palco = document.getElementById("roda-palco"), roda = document.getElementById("roda");
+    if (!palco || !roda) return;
+    const cs = [...roda.querySelectorAll(".roda-carta")], N = cs.length, PASSO = 360 / N, unicos = N / 3;
+    const texto = document.getElementById("roda-texto");
+    cs.forEach((c, i) => c.style.setProperty("--a", (i * PASSO) + "deg"));
+    let giro = 0, alvo = null, parado = false, ativo = -1, descanso = 0, ultimo = performance.now();
+    const norm = (g) => ((g % 360) + 540) % 360 - 180;
+    function atualizar() {
+      roda.style.transform = "rotate(" + giro.toFixed(2) + "deg)";
+      let melhor = 0, menor = 999;
+      cs.forEach((c, i) => { const d = Math.abs(norm(i * PASSO + giro)); if (d < menor) { menor = d; melhor = i; } });
+      if (melhor !== ativo) {
+        ativo = melhor; cs.forEach((c, i) => c.classList.toggle("ativa", i === ativo));
+        const c = cs[ativo], orig = cs[ativo % unicos];
+        texto.replaceChildren();
+        const sm = document.createElement("small"); sm.textContent = c.dataset.tipo;
+        const b = document.createElement("b"); b.textContent = c.querySelector(".nome").textContent;
+        const pp = document.createElement("p"); pp.textContent = c.dataset.desc;
+        const a = document.createElement("a"); a.href = orig.href; a.target = "_blank"; a.rel = "noopener"; a.textContent = "Ver o site";
+        texto.append(sm, b, pp, a); texto.classList.remove("troca"); texto.offsetWidth; texto.classList.add("troca");
+      }
     }
-    const ir = (i) => { atual = (i + N) % N; pintar(); };
-    const ligarAuto = () => { clearInterval(auto); if (!semMovimento) auto = setInterval(() => ir(atual + 1), 4200); };
-    const descansar = () => { clearTimeout(pausa); clearInterval(auto); pausa = setTimeout(ligarAuto, 7000); };
-    document.getElementById("seta-esq").addEventListener("click", () => { ir(atual - 1); descansar(); });
-    document.getElementById("seta-dir").addEventListener("click", () => { ir(atual + 1); descansar(); });
-    cartas.forEach((c, i) => c.addEventListener("click", () => { if (i !== atual) { ir(i); descansar(); } }));
-    // arrastar com mouse ou dedo
-    let x0 = null;
-    palco.addEventListener("pointerdown", (e) => { x0 = e.clientX; });
-    addEventListener("pointerup", (e) => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) { ir(atual + (dx < 0 ? 1 : -1)); descansar(); } });
-    addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") { ir(atual - 1); descansar(); } if (e.key === "ArrowRight") { ir(atual + 1); descansar(); } });
-    addEventListener("resize", pintar);
-    const vids = cartas.map((c) => c.querySelector("video")).filter(Boolean);
-    if (!semMovimento) new IntersectionObserver((es) => es.forEach((e) => vids.forEach((v) => e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: .2 }).observe(palco);
-    pintar(); ligarAuto();
-    // só gira sozinho enquanto está na tela
-    new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) ligarAuto(); else clearInterval(auto); }), { threshold: .3 }).observe(palco);
+    function quadro(agora) {
+      const dt = Math.min(64, agora - ultimo) / 1000; ultimo = agora;
+      if (alvo !== null) { const d = alvo - giro; giro += d * Math.min(1, dt * 7); if (Math.abs(d) < .05) { giro = alvo; alvo = null; } }
+      else if (!parado && !semMovimento && agora > descanso) giro -= 5 * dt;
+      atualizar(); requestAnimationFrame(quadro);
+    }
+    const irPara = (i) => { alvo = giro - norm(i * PASSO + giro); descanso = performance.now() + 5000; };
+    document.getElementById("roda-ant").addEventListener("click", () => irPara(ativo - 1));
+    document.getElementById("roda-prox").addEventListener("click", () => irPara(ativo + 1));
+    palco.addEventListener("pointerenter", (e) => { if (e.pointerType === "mouse") parado = true; });
+    palco.addEventListener("pointerleave", () => { parado = false; });
+
+    // arrastar para os lados gira a roda; um arrasto não abre o link
+    let x0 = null, g0 = 0, arrastou = false;
+    palco.addEventListener("pointerdown", (e) => { x0 = e.clientX; g0 = giro; arrastou = false; alvo = null; });
+    addEventListener("pointermove", (e) => { if (x0 === null) return; const dx = e.clientX - x0; if (Math.abs(dx) > 6) { arrastou = true; palco.classList.add("arrastando"); } if (arrastou) giro = g0 + dx * .18; });
+    addEventListener("pointerup", () => { if (x0 === null) return; x0 = null; palco.classList.remove("arrastando"); if (arrastou) { descanso = performance.now() + 4000; irPara(ativo); } });
+    cs.forEach((c, i) => c.addEventListener("click", (e) => { if (arrastou) { e.preventDefault(); arrastou = false; return; } if (i !== ativo) { e.preventDefault(); irPara(i); } }));
+    requestAnimationFrame(quadro);
   })();
 
   // ---------- Revelação ao rolar ----------
