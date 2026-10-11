@@ -3,11 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="img/zion-marca.svg" type="image/svg+xml" />
   <title>Zion — Agência digital: sites, marketing, identidade visual e automação</title>
   <meta name="description" content="Agência Zion, em Timóteo, MG. Sites, gestão de Instagram, identidade visual e automação para negócios do Vale do Aço. Preço fechado antes de começar." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Outfit:wght@700&display=swap" rel="stylesheet" />
   <style>
     /* =========================================================
        TEXTOS: troque direto no HTML lá embaixo, seção por seção.
@@ -53,8 +54,9 @@
     .topo .miolo { display: flex; justify-content: space-between; align-items: center; height: 68px; transition: height .35s cubic-bezier(.22,1,.36,1); }
     body.rolou .topo .miolo { height: 56px; }
     .marca { display: flex; align-items: center; gap: 12px; text-decoration: none; }
-    .marca img { width: 36px; height: 36px; border-radius: 9px; object-fit: cover; border: 1px solid var(--vidro-borda); }
-    .marca b { font-weight: 800; font-size: 16px; letter-spacing: .3em; }
+    .marca { gap: 9px; }
+    .marca .montanha { width: 34px; height: auto; display: block; }
+    .marca b, .logo-grande b { font-family: "Outfit", "Manrope", sans-serif; font-weight: 700; font-size: 23px; letter-spacing: -.02em; line-height: 1; color: #fff; }
     .nav { display: flex; align-items: center; gap: 26px; font-size: 13.5px; font-weight: 600; position: relative; }
     .nav a { text-decoration: none; color: var(--cinza); transition: color .2s; }
     .nav a:hover { color: var(--texto); }
@@ -115,7 +117,7 @@
     .cartao a:hover::after { transform: translateX(4px); }
 
     /* modelos: carrossel flutuante (cartões em leque, o do meio na frente) */
-    #modelos { overflow: hidden; }
+    #projetos { overflow: hidden; }
     .palco { position: relative; height: 520px; perspective: 1400px; user-select: none; touch-action: pan-y; }
     .cartas { position: absolute; inset: 0; transform-style: preserve-3d; }
     .carta { position: absolute; left: 50%; top: 50%; width: 250px; height: 400px; margin: -200px 0 0 -125px; border-radius: 26px; overflow: hidden; cursor: pointer; border: 1px solid rgba(255,255,255,.16); background: #0b0b0b; box-shadow: 0 40px 90px rgba(0,0,0,.65), inset 0 1px 0 rgba(255,255,255,.14); transition: transform .8s cubic-bezier(.22,1,.36,1), opacity .8s, filter .8s, width .8s cubic-bezier(.22,1,.36,1), height .8s cubic-bezier(.22,1,.36,1), margin .8s cubic-bezier(.22,1,.36,1); will-change: transform; }
@@ -123,23 +125,18 @@
     .carta .fundo-carta { position: absolute; inset: 0; background: radial-gradient(90% 60% at 20% 0%, rgba(255,255,255,.22), transparent 60%), linear-gradient(160deg, #262626 0%, #0d0d0d 55%, #050505 100%); }
     .carta .fundo-carta::after { content: ""; position: absolute; inset: 0; background: radial-gradient(60% 40% at 80% 100%, rgba(255,255,255,.08), transparent 70%); }
     .carta .n { position: absolute; top: 16px; right: 18px; font-size: 11.5px; font-weight: 700; letter-spacing: .1em; color: var(--cinza); }
-    /* esboço de layout desenhado com caixas: representa o modelo de site */
-    .esboco { position: absolute; left: 22px; right: 22px; top: 48px; display: grid; gap: 8px; }
-    .esboco i { display: block; border-radius: 6px; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.06); }
-    .esboco .topo-e { height: 10px; width: 46%; }
-    .esboco .tit { height: 22px; width: 82%; background: rgba(255,255,255,.22); }
-    .esboco .tit2 { height: 22px; width: 60%; background: rgba(255,255,255,.22); }
-    .esboco .txt { height: 8px; width: 90%; }
-    .esboco .txt2 { height: 8px; width: 70%; }
-    .esboco .bot { height: 26px; width: 44%; border-radius: 999px; background: linear-gradient(180deg, #fff, #a3a3a3); border: 0; margin-top: 4px; }
-    .esboco .grade-e { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 6px; }
-    .esboco .grade-e i { height: 44px; }
-    .carta .legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 60px 22px 22px; background: linear-gradient(180deg, rgba(5,5,5,0), rgba(5,5,5,.95) 60%); }
+    /* cada cartão mostra o site de verdade rodando no celular */
+    .carta video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; pointer-events: none; }
+    .carta .n { z-index: 2; padding: 4px 9px; border-radius: 999px; background: rgba(5,5,5,.6); }
+    .carta .legenda { position: absolute; left: 0; right: 0; bottom: 0; padding: 90px 22px 22px; background: linear-gradient(180deg, rgba(5,5,5,0), rgba(5,5,5,.9) 35%, #050505 62%); }
     .carta .legenda small { display: block; font-size: 11px; font-weight: 700; letter-spacing: .2em; text-transform: uppercase; color: var(--cinza); margin-bottom: 4px; }
     .carta .legenda b { display: block; font-size: 22px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
     .carta.ativa .legenda b { font-size: 28px; }
     .carta .legenda span { display: block; font-size: 13px; color: var(--cinza); margin-top: 6px; }
-    .carta:not(.ativa) .legenda span { display: none; }
+    .carta:not(.ativa) .legenda span, .carta:not(.ativa) .legenda a { display: none; }
+    .carta .legenda a { display: inline-flex; align-items: center; gap: 6px; margin-top: 14px; padding: 9px 15px; border-radius: 999px; font-size: 13px; font-weight: 700; color: #050505; background: linear-gradient(180deg, #fff, #bdbdbd); text-decoration: none; }
+    .carta .legenda a::after { content: "↗"; }
+    .carta .legenda a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
     .palco .seta { position: absolute; top: 50%; z-index: 30; width: 46px; height: 46px; margin-top: -23px; border-radius: 50%; border: 1px solid var(--vidro-borda); background: rgba(9,9,9,.9); color: #fff; font-size: 18px; cursor: pointer; display: grid; place-items: center; transition: background .2s, color .2s, transform .2s; }
     .palco .seta:hover { background: #fff; color: #050505; transform: scale(1.06); }
     .palco .seta.esq { left: 0; } .palco .seta.dir { right: 0; }
@@ -150,7 +147,12 @@
     /* sobre */
     .sobre .miolo { display: grid; grid-template-columns: .85fr 1.15fr; gap: 56px; align-items: center; }
     .retrato { position: relative; aspect-ratio: 1; border-radius: 28px; overflow: hidden; background: #000; border: 1px solid var(--vidro-borda); box-shadow: 0 40px 100px rgba(0,0,0,.65); }
-    .retrato img { width: 100%; height: 100%; object-fit: cover; display: block; will-change: transform; }
+    .retrato { display: grid; place-items: center; background: radial-gradient(80% 60% at 30% 20%, #262626, #050505 70%); }
+    .logo-grande { text-align: center; will-change: transform; }
+    .logo-grande .linha { display: inline-flex; align-items: flex-end; gap: 14px; }
+    .logo-grande .montanha { width: clamp(70px, 9vw, 104px); height: auto; display: block; }
+    .logo-grande b { font-size: clamp(54px, 7vw, 80px); }
+    .logo-grande small { display: block; margin-top: 14px; font-size: clamp(13px, 1.4vw, 16px); letter-spacing: .08em; color: #d4d4d4; }
     .retrato::after { content: ""; position: absolute; inset: 0; background: linear-gradient(160deg, rgba(255,255,255,.08), transparent 40%); pointer-events: none; }
     .sobre .texto { padding: 34px 36px; border-radius: 26px; background: var(--vidro); border: 1px solid var(--vidro-borda); }
     .sobre p { color: var(--cinza); margin-top: 14px; max-width: 54ch; font-size: 15.5px; }
@@ -187,15 +189,6 @@
     .flutuante:hover { transform: translateY(-2px); }
     .flutuante svg { width: 18px; height: 18px; }
 
-    /* carregando */
-    .carregando { position: fixed; inset: 0; z-index: 100; background: #050505; display: grid; place-items: center; transition: opacity .7s ease, visibility .7s; }
-    .carregando.pronto { opacity: 0; visibility: hidden; }
-    .carregando .caixa { text-align: center; }
-    .carregando img { width: 150px; height: 150px; object-fit: cover; border-radius: 26px; display: block; margin: 0 auto 22px; }
-    .carregando .txt { font-weight: 700; letter-spacing: .5em; font-size: 12px; color: #6a6a6a; padding-left: .5em; }
-    .carregando .barra { width: 160px; height: 1px; background: #262626; margin: 18px auto 0; overflow: hidden; }
-    .carregando .barra i { display: block; height: 100%; width: 0; background: #fff; }
-    body.carregando-ativo { overflow: hidden; }
     .progresso { position: fixed; left: 0; top: 0; height: 2px; width: 0; background: linear-gradient(90deg, #fff, #7a7a7a); z-index: 40; transition: width .1s linear; }
 
     /* questionário */
@@ -251,22 +244,14 @@
     }
   </style>
 </head>
-<body class="carregando-ativo">
+<body>
   <div class="fundo" aria-hidden="true"><div class="img"></div><div class="m m1"></div><div class="m m2"></div><div class="toque" id="toque"></div></div>
   <div class="progresso" id="progresso"></div>
 
-  <div class="carregando" id="carregando" aria-hidden="true">
-    <div class="caixa">
-      <img src="img/zion-logo.png" alt="" />
-      <div class="txt">AGÊNCIA</div>
-      <div class="barra"><i id="barra"></i></div>
-    </div>
-  </div>
-
   <header class="topo">
     <div class="miolo">
-      <a class="marca" href="#"><img src="img/zion-logo.png" alt="Zion" /><b class="metal">ZION</b></a>
-      <nav class="nav"><a href="#servicos">Serviços</a><a href="#modelos">Modelos</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a><i class="traco" id="traco"></i></nav>
+      <a class="marca" href="#" aria-label="Zion, voltar ao início"><svg class="montanha" viewBox="0 0 100 64" aria-hidden="true"><defs><linearGradient id="prata-topo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".38" stop-color="#d9d9d9"/><stop offset=".62" stop-color="#8f8f8f"/><stop offset="1" stop-color="#e9e9e9"/></linearGradient></defs><path fill="url(#prata-topo)" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg><b>Zion</b></a>
+      <nav class="nav"><a href="#servicos">Serviços</a><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a><a href="#contato">Contato</a><i class="traco" id="traco"></i></nav>
       <a class="btn solido" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta">Pedir proposta</a>
     </div>
   </header>
@@ -282,7 +267,7 @@
         <p>A Zion cria o <b>site</b>, cuida do <b>marketing</b>, desenha a <b>identidade</b> e automatiza o que toma seu tempo. Uma equipe só, do primeiro rascunho ao lançamento.</p>
         <div class="botoes">
           <a class="btn solido" href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta"><span>Pedir proposta</span><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></a>
-          <a class="btn vazado" href="#modelos">Ver modelos</a>
+          <a class="btn vazado" href="#projetos">Ver projetos</a>
         </div>
       </div>
     </div>
@@ -305,8 +290,8 @@
         </article>
         <article class="cartao rev" style="--i:2">
           <div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a3 3 0 0 1 0 6M18 6a7 7 0 0 1 0 12"/></svg></div>
-          <h3>Marketing</h3>
-          <p>Instagram com cara de marca de verdade e anúncios que trazem cliente. Planejamento, artes, legendas, vídeos e relatório do que funcionou.</p>
+          <h3>Marketing e tráfego pago</h3>
+          <p>Instagram com cara de marca de verdade e anúncios no Instagram e no Google que trazem cliente. Planejamento, artes, legendas, vídeos e relatório do que funcionou.</p>
           <ul><li>Gestão de Instagram</li><li>Artes e reels</li><li>Tráfego pago</li></ul>
           <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20uma%20proposta%20de%20marketing">Quero marketing</a>
         </article>
@@ -328,35 +313,32 @@
     </div>
   </section>
 
-  <!-- MODELOS: carrossel flutuante. Para adicionar um modelo, copie um <article class="carta"> e troque os textos. -->
-  <section id="modelos">
+  <!-- PROJETOS: carrossel flutuante com os sites no ar. Para adicionar um, copie um <article class="carta">, troque o vídeo (img/projeto-NOME.mp4), os textos e o link. -->
+  <section id="projetos">
     <div class="miolo">
       <div class="cabeca rev">
-        <div><div class="rotulo">Modelos</div><h2>Escolha um ponto de partida, <em>a gente deixa com a sua cara.</em></h2></div>
-        <p>Modelos de site prontos para personalizar com suas cores, textos e fotos. Arraste ou use as setas.</p>
+        <div><div class="rotulo">Projetos</div><h2>Sites que já estão <em>no ar.</em></h2></div>
+        <p>Trabalhos que fizemos e que estão funcionando agora. Arraste ou use as setas.</p>
       </div>
       <div class="palco rev" id="palco">
         <button class="seta esq" id="seta-esq" aria-label="Anterior">←</button>
         <div class="cartas" id="cartas">
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Barbearia</b><span>Serviços, horários e agendamento pelo WhatsApp.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Clínica</b><span>Especialidades, convênios e marcação de consulta.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Restaurante</b><span>Cardápio digital com pedido direto no WhatsApp.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Loja</b><span>Vitrine de produtos e catálogo para compartilhar.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Estética</b><span>Procedimentos, antes e depois, agenda online.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Advocacia</b><span>Áreas de atuação, equipe e contato direto.</span></div></article>
-          <article class="carta"><div class="fundo-carta"></div><span class="n"></span><div class="esboco"><i class="topo-e"></i><i class="tit"></i><i class="tit2"></i><i class="txt"></i><i class="txt2"></i><i class="bot"></i><div class="grade-e"><i></i><i></i><i></i></div></div><div class="legenda"><small>Modelo</small><b>Academia</b><span>Planos, horários das aulas e matrícula online.</span></div></article>
+          <article class="carta"><video src="img/projeto-foodcourt.mp4" poster="img/projeto-foodcourt.jpg" muted loop playsinline preload="metadata" aria-label="Food Court no celular: entregador sorrindo, “Seu pedido favorito, do seu jeito.” e as lojas parceiras"></video><span class="n"></span><div class="legenda"><small>Delivery</small><b>Food Court</b><span>Reúne os restaurantes da região num app de pedidos, com conta do cliente e entrega.</span><a href="https://foodcourt.nexobg.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
+          <article class="carta"><video src="img/projeto-nexo.mp4" poster="img/projeto-nexo.jpg" muted loop playsinline preload="metadata" aria-label="Nexo no celular: “Venda mais. Gerencie menos.” e o painel com pedidos e faturamento do dia"></video><span class="n"></span><div class="legenda"><small>Gestão de restaurantes</small><b>Nexo</b><span>Cardápio digital, pedidos pelo WhatsApp e gestão do restaurante num lugar só, sem comissão.</span><a href="https://nexobg.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
+          <article class="carta"><video src="img/projeto-maison.mp4" poster="img/projeto-maison.jpg" muted loop playsinline preload="metadata" aria-label="Maison Lourée no celular: frascos Rose Dorée e Lourée Noir sobre uma mesa escura"></video><span class="n"></span><div class="legenda"><small>Perfumaria · Timóteo</small><b>Maison Lourée</b><span>Loja dos perfumes da marca, com os frascos em 3D e compra direto no site.</span><a href="https://maisonlouree.com.br/" target="_blank" rel="noopener">Ver o site</a></div></article>
+          <article class="carta"><video src="img/projeto-rosa.mp4" poster="img/projeto-rosa.jpg" muted loop playsinline preload="metadata" aria-label="Outubro Rosa da Clínica Dias no celular: título rosa e a cruz com a fita da campanha"></video><span class="n"></span><div class="legenda"><small>Campanha · Clínica Dias</small><b>Outubro Rosa</b><span>Divulga o pacote da campanha e leva a paciente direto para agendar no WhatsApp.</span><a href="https://outubrorosa.clinicadias.com/" target="_blank" rel="noopener">Ver o site</a></div></article>
         </div>
         <button class="seta dir" id="seta-dir" aria-label="Próximo">→</button>
-        <div class="contador" id="contador">1 / 7</div>
+        <div class="contador" id="contador">1 / 4</div>
       </div>
-      <p class="modelos-pe rev">Não achou o seu segmento? A gente monta do zero. <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20site%20para%20o%20meu%20neg%C3%B3cio">Fala com a gente.</a></p>
+      <p class="modelos-pe rev">Quer um site assim para o seu negócio? <a href="https://wa.me/5531989165103?text=Oi%20Zion%2C%20quero%20um%20site%20para%20o%20meu%20neg%C3%B3cio">Fala com a gente.</a></p>
     </div>
   </section>
 
   <!-- SOBRE -->
   <section id="sobre" class="sobre">
     <div class="miolo">
-      <div class="retrato rev"><img src="img/zion-logo.png" alt="Zion" /></div>
+      <div class="retrato rev"><div class="logo-grande" role="img" aria-label="Logo da Zion: duas montanhas prateadas e o nome Zion. Levamos a sua marca ao topo."><span class="linha"><svg class="montanha" viewBox="0 0 100 64" aria-hidden="true"><defs><linearGradient id="prata-sobre" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".38" stop-color="#d9d9d9"/><stop offset=".62" stop-color="#8f8f8f"/><stop offset="1" stop-color="#e9e9e9"/></linearGradient></defs><path fill="url(#prata-sobre)" d="M0 64 38 0l23 38.5L75 17l25 47z"/></svg><b>Zion</b></span><small>Levamos a sua marca ao topo.</small></div></div>
       <div class="texto rev">
         <div class="rotulo">Sobre a Zion</div>
         <h2>Design, tecnologia e marketing <em>na mesma mesa.</em></h2>
@@ -437,14 +419,8 @@
     (function passo() { ax += (tx - ax) * .07; ay += (ty - ay) * .07; m.style.transform = "translate(" + ax.toFixed(1) + "px," + ay.toFixed(1) + "px)"; requestAnimationFrame(passo); })();
   })();
 
-  // ---------- Carregando ----------
-  (() => {
-    const tela = document.getElementById("carregando"), barra = document.getElementById("barra");
-    const fim = () => { tela.classList.add("pronto"); document.body.classList.remove("carregando-ativo"); document.body.classList.add("pronto"); };
-    if (semMovimento) return fim();
-    const DUR = 1700, t0 = performance.now();
-    (function passo(agora) { const t = Math.min(1, (agora - t0) / DUR); barra.style.width = (1 - Math.pow(1 - t, 2.4)) * 100 + "%"; if (t < 1) requestAnimationFrame(passo); else setTimeout(fim, 200); })(t0);
-  })();
+  // ---------- Entrada da abertura (sem tela de carregamento) ----------
+  requestAnimationFrame(() => requestAnimationFrame(() => document.body.classList.add("pronto")));
 
   // ---------- Modelos: carrossel flutuante em leque ----------
   (() => {
@@ -478,6 +454,8 @@
     addEventListener("pointerup", (e) => { if (x0 === null) return; const dx = e.clientX - x0; x0 = null; if (Math.abs(dx) > 40) { ir(atual + (dx < 0 ? 1 : -1)); descansar(); } });
     addEventListener("keydown", (e) => { if (e.key === "ArrowLeft") { ir(atual - 1); descansar(); } if (e.key === "ArrowRight") { ir(atual + 1); descansar(); } });
     addEventListener("resize", pintar);
+    const vids = cartas.map((c) => c.querySelector("video")).filter(Boolean);
+    if (!semMovimento) new IntersectionObserver((es) => es.forEach((e) => vids.forEach((v) => e.isIntersecting ? v.play().catch(() => {}) : v.pause())), { threshold: .2 }).observe(palco);
     pintar(); ligarAuto();
     // só gira sozinho enquanto está na tela
     new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) ligarAuto(); else clearInterval(auto); }), { threshold: .3 }).observe(palco);
@@ -499,8 +477,8 @@
     document.body.classList.toggle("rolou", y > 40);
     let ativo = -1; secoes.forEach((s, i) => { if (s && s.getBoundingClientRect().top <= innerHeight * .45) ativo = i; });
     if (ativo >= 0) { traco.style.left = links[ativo].offsetLeft + "px"; traco.style.width = links[ativo].offsetWidth + "px"; } else traco.style.width = "0";
-    const img = document.querySelector(".retrato img");
-    if (img && !semMovimento) { const r = img.parentElement.getBoundingClientRect(); const d = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; img.style.transform = "translateY(" + (d * -26).toFixed(1) + "px) scale(1.12)"; }
+    const img = document.querySelector(".retrato .logo-grande");
+    if (img && !semMovimento) { const r = img.parentElement.getBoundingClientRect(); const d = (r.top + r.height / 2 - innerHeight / 2) / innerHeight; img.style.transform = "translateY(" + (d * -18).toFixed(1) + "px)"; }
   }
   addEventListener("scroll", aoRolar, { passive: true }); addEventListener("resize", aoRolar); aoRolar();
 
